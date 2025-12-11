@@ -31,6 +31,10 @@ export const useLiveKitRoom = () => {
   const roomRef = useRef<Room | null>(null);
   const audioElementRef = useRef<HTMLAudioElement | null>(null);
   const currentVideoTrackRef = useRef<RemoteTrack | null>(null);
+  // Local camera refs
+  const localPreviewRef = useRef<HTMLVideoElement | null>(null);
+  const localVideoTrackRef = useRef<MediaStreamTrack | null>(null);
+  const localStreamRef = useRef<MediaStream | null>(null);
 
   const updateParticipants = useCallback(() => {
     if (roomRef.current) {
@@ -46,6 +50,65 @@ export const useLiveKitRoom = () => {
   const refreshVideoElement = useCallback(() => {
     console.log('Refreshing video element...');
     setVideoElementKey(prev => prev + 1);
+  }, []);
+
+  // Local preview active flag
+  const [isPreviewActive, setIsPreviewActive] = useState(false);
+
+  const startLocalPreview = useCallback(async () => {
+    if (isPreviewActive) {
+      console.log('startLocalPreview: preview already active');
+      return;
+    }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      console.warn('startLocalPreview: getUserMedia not available');
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: false });
+      localStreamRef.current = stream;
+      const track = stream.getVideoTracks()[0];
+      localVideoTrackRef.current = track || null;
+
+      // Attach to local preview element if present
+      const localEl = document.getElementById('local-preview') as HTMLVideoElement | null;
+      if (localEl) {
+        localEl.srcObject = stream;
+        localEl.muted = true;
+        // ignore play promise errors
+        localEl.play().catch(() => {});
+      }
+
+      setIsPreviewActive(true);
+      console.log('startLocalPreview: local preview started (NOT published to room)');
+    } catch (err) {
+      console.warn('startLocalPreview error:', err);
+    }
+  }, [isPreviewActive]);
+
+  const stopLocalPreview = useCallback(() => {
+    try {
+      // Stop all tracks in the local stream
+      if (localStreamRef.current) {
+        localStreamRef.current.getTracks().forEach((t) => {
+          try { t.stop(); } catch (e) {}
+        });
+        localStreamRef.current = null;
+      }
+      if (localVideoTrackRef.current) {
+        try { localVideoTrackRef.current.stop(); } catch (e) {}
+        localVideoTrackRef.current = null;
+      }
+      const localEl = document.getElementById('local-preview') as HTMLVideoElement | null;
+      if (localEl) {
+        localEl.pause();
+        localEl.srcObject = null;
+      }
+      setIsPreviewActive(false);
+      console.log('stopLocalPreview: local preview stopped');
+    } catch (err) {
+      console.warn('stopLocalPreview error:', err);
+    }
   }, []);
 
   const handleTrackSubscribed = useCallback(
@@ -272,6 +335,10 @@ export const useLiveKitRoom = () => {
         await room.localParticipant.setMicrophoneEnabled(true);
         console.log('Microphone enabled');
 
+        // Automatic camera publishing removed to avoid interfering with existing audio setup.
+        // If you want camera publishing, call a dedicated toggle that requests
+        // getUserMedia and publishes the track on demand.
+
         updateParticipants();
         setIsConnected(true);
       } catch (e) {
@@ -316,6 +383,10 @@ export const useLiveKitRoom = () => {
     connect,
     disconnect,
     toggleMicrophone,
+    // local-only preview (not published to LiveKit)
+    startLocalPreview,
+    stopLocalPreview,
+    isPreviewActive,
     room: roomRef.current,
     // 🔴 NEW: Export the video key for the component to use
     videoElementKey,
