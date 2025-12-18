@@ -14,7 +14,7 @@ import IaLibrary from './pages/IaLibrary';
 import MyProfile from './pages/MyProfile';
 import LiveKitChat from './pages/LiveKitChat';
 import { HomeIcon } from './components/icons/NavIcons';
-import VoiceChatUI from './components/VoiceChatUI';
+import AudioOnlyChat from './components/AudioOnlyChat';
 
 const AppLayout: React.FC = () => {
   const location = useLocation();
@@ -64,7 +64,7 @@ const App: React.FC = () => {
                   <Route path="/guided-learning" element={<GuidedLearning />} />
                   <Route path="/library" element={<IaLibrary />} />
                   <Route path="/profile" element={<MyProfile />} />
-                  <Route path="/livekit-chat" element={<VoiceChatUI />} />
+                  <Route path="/livekit-chat" element={<AudioOnlyChat />} />
                 </Route>
              </Routes>
           </main>

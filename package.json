@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run agent & vite",
+    "dev": "npm run proxy & npm run agent & vite",
     "build": "vite build",
     "preview": "vite preview",
+    "proxy": "node proxy.js",
     "agent": "node agent.js"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "axios": "^1.13.2",
     "jose": "^6.1.2",
     "livekit-client": "^2.16.0",
+    "openai": "^6.14.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.4",
