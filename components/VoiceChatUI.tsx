@@ -38,7 +38,7 @@ const VoiceChatUI: React.FC = () => {
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
-  // Open camera - fixed version
+  // Open camera
   const openCamera = async () => {
     setCameraLoading(true);
     try {
@@ -52,12 +52,9 @@ const VoiceChatUI: React.FC = () => {
       
       streamRef.current = stream;
       
-      // Wait for video element to be ready
       const videoEl = localVideoRef.current;
       if (videoEl) {
         videoEl.srcObject = stream;
-        
-        // Make sure video plays
         videoEl.onloadedmetadata = () => {
           videoEl.play().catch(e => console.log('Play error:', e));
         };
@@ -177,9 +174,8 @@ const VoiceChatUI: React.FC = () => {
             )}
           </div>
 
-          {/* LOCAL CAMERA PREVIEW - Bigger like Google Meet */}
+          {/* LOCAL CAMERA PREVIEW */}
           <div className="absolute bottom-32 right-4 w-36 h-28 md:w-48 md:h-36 bg-gray-900 rounded-xl overflow-hidden shadow-2xl ring-2 ring-white/20">
-            {/* Video element - always present */}
             <video
               ref={localVideoRef}
               className="w-full h-full object-cover"
@@ -188,11 +184,10 @@ const VoiceChatUI: React.FC = () => {
               autoPlay
               style={{ 
                 display: cameraOn ? 'block' : 'none',
-                transform: 'scaleX(-1)' // Mirror effect like in video calls
+                transform: 'scaleX(-1)'
               }}
             />
             
-            {/* Placeholder when camera is off */}
             {!cameraOn && (
               <div className="w-full h-full flex flex-col items-center justify-center bg-gray-800">
                 <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-600 flex items-center justify-center mb-2">
@@ -204,52 +199,23 @@ const VoiceChatUI: React.FC = () => {
               </div>
             )}
 
-            {/* Loading indicator */}
             {cameraLoading && (
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                 <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               </div>
             )}
 
-            {/* Green dot when camera is on */}
             {cameraOn && (
               <div className="absolute top-2 left-2 bg-green-500 w-3 h-3 rounded-full border-2 border-white shadow"></div>
             )}
 
-            {/* Name label */}
             <div className="absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
               {user.name || 'You'}
             </div>
           </div>
 
-          {/* OPEN/CLOSE CAMERA BUTTON */}
-          <div className="absolute bottom-32 right-44 md:right-56">
-            {!cameraOn ? (
-              <button
-                onClick={openCamera}
-                disabled={cameraLoading}
-                className="bg-emerald-500 hover:bg-emerald-600 disabled:bg-gray-500 text-white text-sm px-4 py-2 rounded-lg shadow-lg transition flex items-center space-x-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                <span>{cameraLoading ? 'Opening...' : 'Open Camera'}</span>
-              </button>
-            ) : (
-              <button
-                onClick={closeCamera}
-                className="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-lg shadow-lg transition flex items-center space-x-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                </svg>
-                <span>Close Camera</span>
-              </button>
-            )}
-          </div>
-
           {/* Transcript bubble */}
-          <div className="absolute left-4 bottom-28 max-w-[50%] bg-white/10 backdrop-blur border border-white/10 text-white text-sm px-4 py-3 rounded-2xl">
+          <div className="absolute left-4 bottom-36 max-w-[50%] bg-white/10 backdrop-blur border border-white/10 text-white text-sm px-4 py-3 rounded-2xl">
             <div className="flex items-center justify-between">
               <div className="text-xs text-white/90 truncate">
                 <strong className="text-white">Agent:</strong> {agentTranscript || '...'}
@@ -283,7 +249,33 @@ const VoiceChatUI: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
+            {/* Buttons together on the right */}
+            <div className="flex items-center space-x-2">
+              {/* Camera button */}
+              {!cameraOn ? (
+                <button
+                  onClick={openCamera}
+                  disabled={cameraLoading}
+                  className="flex items-center space-x-2 px-3 py-3 rounded-full text-white font-medium bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 transition"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <span className="text-sm hidden md:inline">{cameraLoading ? 'Opening...' : 'Camera'}</span>
+                </button>
+              ) : (
+                <button
+                  onClick={closeCamera}
+                  className="flex items-center space-x-2 px-3 py-3 rounded-full text-white font-medium bg-red-600 hover:bg-red-700 transition"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                  </svg>
+                  <span className="text-sm hidden md:inline">Close</span>
+                </button>
+              )}
+
+              {/* Start/End Call button */}
               <button
                 onClick={isConnected ? handleDisconnect : handleConnect}
                 disabled={isGeneratingToken || connectionState === ConnectionState.Connecting}

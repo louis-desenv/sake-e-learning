@@ -53,8 +53,8 @@ const IaChat: React.FC = () => {
     return (
       <div className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
         <header className="text-center mb-6">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">IA Chat</h1>
-          <p className="text-gray-500 mt-1">Have a natural voice conversation with your AI tutor.</p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">Talk to a Ultra-realist Avatar</h1>
+          <p className="text-gray-500 mt-1">Practice your skills with a ultra-realist Avatar.</p>
         </header>
         <div className="w-full">
           <VoiceChatUI />

@@ -6,7 +6,9 @@ import useLocalStorage from './hooks/useLocalStorage';
 import type { UserProfile } from './types';
 
 import Onboarding from './components/Onboarding';
+import Login from './pages/Login';
 import BottomNav from './components/BottomNav';
+import PageTransition from './components/PageTransition';
 import HomeDashboard from './pages/HomeDashboard';
 import IaChat from './pages/IaChat';
 import GuidedLearning from './pages/GuidedLearning';
@@ -33,7 +35,9 @@ const AppLayout: React.FC = () => {
         </Link>
       )}
       <div className={showHomeButton ? 'pt-16' : ''}>
-        <Outlet />
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </div>
     </>
   );
@@ -45,9 +49,7 @@ const App: React.FC = () => {
 
   if (!userProfile) {
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-            <Onboarding onOnboardingComplete={setUserProfile} />
-        </div>
+        <Login onLoginComplete={setUserProfile} />
     );
   }
 

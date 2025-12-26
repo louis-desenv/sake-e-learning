@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Card from '../components/Card';
 import { useUser } from '../context/UserContext';
 import { ChatIcon, BookOpenIcon, VideoCameraIcon, UserCircleIcon, MicrophoneIcon } from '../components/icons/NavIcons';
-import avatarPic from '../dist/assets/images/avatar-pic.png';
+
 
 const HomeDashboard: React.FC = () => {
     const user = useUser();
@@ -30,8 +30,7 @@ const HomeDashboard: React.FC = () => {
                             <h2 className="text-2xl font-bold">Talk to a Ultra-realist Avatar</h2>
                             <p className="mt-2 opacity-80 max-w-lg">Practice your speaking and listening skills with a real-time voice chat with your AI tutor.</p>
                         </div>
-                        <div className="mt-4 md:mt-0 flex items-center space-x-4">
-                            <img src={avatarPic} alt="Ultra-realist Avatar" className="w-16 h-16 rounded-full object-cover" />
+                        <div className="mt-4 md:mt-0">
                             <Link to="/chat" state={{ mode: 'voice' }} className="bg-white text-blue-600 font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gray-100 transition-transform transform hover:scale-105">
                                 Go to IA Chat
                             </Link>

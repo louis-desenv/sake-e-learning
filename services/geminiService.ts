@@ -11,7 +11,7 @@ const ai = new GoogleGenAI({ apiKey: API_KEY });
 export const getTipOfTheDay = async (): Promise<string> => {
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-1.0-pro',
             contents: 'Provide a short, interesting English learning tip of the day. Make it practical and encouraging.',
         });
         return response.text;
@@ -20,6 +20,8 @@ export const getTipOfTheDay = async (): Promise<string> => {
         return "Could not fetch a tip right now. Please try again later.";
     }
 };
+
+
 
 export const sendChatMessage = async (message: string, conversationHistory: string[] = [], topic?: string): Promise<string> => {
     const topicLabel = topic ? topic.replace(/-/g, ' ') : undefined;
@@ -30,7 +32,7 @@ export const sendChatMessage = async (message: string, conversationHistory: stri
             : `${basePrompt}Respond to this message: ${message}`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-1.0-pro',
             contents: prompt,
         });
         return response.text;
