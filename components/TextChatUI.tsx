@@ -77,12 +77,12 @@ const TextChatUI: React.FC<TextChatUIProps> = ({ topic }) => {
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
                 {messages.map((message, index) => (
                     <div key={index} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[80%] px-4 py-3 rounded-2xl ${
+                        <div className={`max-w-[85%] sm:max-w-[80%] px-4 py-4 sm:px-4 sm:py-3 rounded-2xl ${
                             message.sender === 'user'
                                 ? 'bg-[#4a7cf5] text-white rounded-br-sm'
                                 : 'bg-white text-gray-800 rounded-bl-sm shadow-sm'
                         }`}>
-                            <p className="text-[15px] whitespace-pre-wrap">{message.text}</p>
+                            <p className="text-base sm:text-[15px] whitespace-pre-wrap">{message.text}</p>
                         </div>
                     </div>
                 ))}
@@ -102,7 +102,7 @@ const TextChatUI: React.FC<TextChatUIProps> = ({ topic }) => {
             </div>
 
             {/* Input */}
-            <div className="bg-white px-4 py-4">
+            <div className="bg-white px-4 py-5 sm:px-4 sm:py-4">
                 <div className="flex items-center space-x-3">
                     <input
                         type="text"
@@ -110,15 +110,15 @@ const TextChatUI: React.FC<TextChatUIProps> = ({ topic }) => {
                         onChange={(e) => setInput(e.target.value)}
                         onKeyPress={handleKeyPress}
                         placeholder="Enter your message..."
-                        className="flex-1 px-4 py-3 bg-gray-100 rounded-full focus:outline-none text-gray-800 border border-gray-200"
+                        className="flex-1 px-5 py-4 sm:px-4 sm:py-3 bg-gray-100 rounded-full focus:outline-none text-gray-800 border border-gray-200 text-base sm:text-sm"
                         disabled={isLoading}
                     />
                     <button
                         onClick={handleSend}
                         disabled={isLoading || !input.trim()}
-                        className="w-12 h-12 bg-[#4a7cf5] text-white rounded-full hover:bg-[#3a6ce5] disabled:bg-gray-300 flex items-center justify-center shadow-lg"
+                        className="w-14 h-14 sm:w-12 sm:h-12 bg-[#4a7cf5] text-white rounded-full hover:bg-[#3a6ce5] disabled:bg-gray-300 flex items-center justify-center shadow-lg"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                         </svg>
                     </button>

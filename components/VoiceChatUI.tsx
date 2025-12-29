@@ -140,8 +140,8 @@ const VoiceChatUI: React.FC = () => {
   const buttonState = getButtonState();
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gray-50 p-4">
-      <div className="relative w-full max-w-3xl h-[82vh] bg-black rounded-2xl overflow-hidden shadow-xl flex flex-col">
+    <div className="w-full h-full flex items-center justify-center bg-gray-50 p-2 sm:p-4">
+      <div className="relative w-full max-w-3xl sm:max-w-4xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl h-[85vh] sm:h-[82vh] bg-black rounded-2xl overflow-hidden shadow-xl flex flex-col">
         <div className="relative flex-1 w-full h-full bg-black">
           <video
             id="bey-avatar-video"
@@ -175,7 +175,7 @@ const VoiceChatUI: React.FC = () => {
           </div>
 
           {/* LOCAL CAMERA PREVIEW */}
-          <div className="absolute bottom-32 right-4 w-36 h-28 md:w-48 md:h-36 bg-gray-900 rounded-xl overflow-hidden shadow-2xl ring-2 ring-white/20">
+          <div className="absolute bottom-32 right-2 sm:right-4 w-44 h-32 sm:w-36 sm:h-28 md:w-48 md:h-36 bg-gray-900 rounded-xl overflow-hidden shadow-2xl ring-2 ring-white/20">
             <video
               ref={localVideoRef}
               className="w-full h-full object-cover"
@@ -215,32 +215,32 @@ const VoiceChatUI: React.FC = () => {
           </div>
 
           {/* Transcript bubble */}
-          <div className="absolute left-4 bottom-36 max-w-[50%] bg-white/10 backdrop-blur border border-white/10 text-white text-sm px-4 py-3 rounded-2xl">
+          <div className="absolute left-2 sm:left-4 bottom-36 max-w-[60%] sm:max-w-[50%] bg-white/10 backdrop-blur border border-white/10 text-white text-sm sm:text-sm px-4 py-4 sm:px-4 sm:py-3 rounded-2xl">
             <div className="flex items-center justify-between">
-              <div className="text-xs text-white/90 truncate">
+              <div className="text-sm sm:text-xs text-white/90 truncate">
                 <strong className="text-white">Agent:</strong> {agentTranscript || '...'}
               </div>
-              <div className="text-xs text-white/80 ml-3">{isAgentSpeaking ? 'Speaking' : ''}</div>
+              <div className="text-sm sm:text-xs text-white/80 ml-3">{isAgentSpeaking ? 'Speaking' : ''}</div>
             </div>
-            <div className="text-xs text-white/70 mt-2 truncate">
+            <div className="text-sm sm:text-xs text-white/70 mt-2 truncate">
               <strong className="text-white">You:</strong> {userTranscript || '...'}
             </div>
           </div>
 
           {/* Control bar */}
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-6 w-[92%] md:w-2/3 bg-white/6 backdrop-blur border border-white/8 rounded-full px-4 py-3 flex items-center justify-between shadow-2xl">
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-6 w-[95%] sm:w-[92%] md:w-2/3 bg-white/6 backdrop-blur border border-white/8 rounded-full px-4 py-4 sm:px-4 sm:py-3 flex items-center justify-between shadow-2xl">
             <div className="flex items-center space-x-4">
               <button
                 onClick={toggleMicrophone}
                 className="flex flex-col items-center justify-center text-white hover:text-white/90 focus:outline-none"
                 title="Toggle Microphone"
               >
-                <div className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-12 h-12 sm:w-11 sm:h-11 rounded-full bg-white/10 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-5 sm:w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 1v11m0 0l3-3m-3 3l-3-3" />
                   </svg>
                 </div>
-                <span className="text-[11px] mt-1 text-white/80">Mic</span>
+                <span className="text-xs sm:text-[11px] mt-1 text-white/80">Mic</span>
               </button>
 
               <div className="hidden md:flex flex-col items-start ml-2">
@@ -256,22 +256,22 @@ const VoiceChatUI: React.FC = () => {
                 <button
                   onClick={openCamera}
                   disabled={cameraLoading}
-                  className="flex items-center space-x-2 px-3 py-3 rounded-full text-white font-medium bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 transition"
+                  className="flex items-center space-x-2 px-4 py-3 sm:px-3 sm:py-3 rounded-full text-white font-medium bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 transition text-sm"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
-                  <span className="text-sm hidden md:inline">{cameraLoading ? 'Opening...' : 'Camera'}</span>
+                  <span className="ml-1">{cameraLoading ? 'Opening...' : 'Camera'}</span>
                 </button>
               ) : (
                 <button
                   onClick={closeCamera}
-                  className="flex items-center space-x-2 px-3 py-3 rounded-full text-white font-medium bg-red-600 hover:bg-red-700 transition"
+                  className="flex items-center space-x-2 px-4 py-3 sm:px-3 sm:py-3 rounded-full text-white font-medium bg-red-600 hover:bg-red-700 transition text-sm"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                   </svg>
-                  <span className="text-sm hidden md:inline">Close</span>
+                  <span className="ml-1">Close</span>
                 </button>
               )}
 
@@ -279,7 +279,7 @@ const VoiceChatUI: React.FC = () => {
               <button
                 onClick={isConnected ? handleDisconnect : handleConnect}
                 disabled={isGeneratingToken || connectionState === ConnectionState.Connecting}
-                className={`flex items-center space-x-2 px-4 py-3 rounded-full text-white font-medium transition ${isConnected ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-500 hover:bg-emerald-600'}`}
+                className={`flex items-center space-x-2 px-5 py-4 sm:px-4 sm:py-3 rounded-full text-white font-medium transition ${isConnected ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-500 hover:bg-emerald-600'} text-sm`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   {isConnected ? (
@@ -288,7 +288,7 @@ const VoiceChatUI: React.FC = () => {
                     <path d="M2.003 5.884l8-3a1 1 0 01.994 0l8 3A1 1 0 0119 6.764v6.472a1 1 0 01-.676.948l-8 3a1 1 0 01-.648 0l-8-3A1 1 0 011 13.236V6.764a1 1 0 011.003-.88z" />
                   )}
                 </svg>
-                <span className="text-sm">{isConnected ? 'End Call' : 'Start Call'}</span>
+                <span className="ml-1">{isConnected ? 'End Call' : 'Start Call'}</span>
               </button>
             </div>
           </div>
