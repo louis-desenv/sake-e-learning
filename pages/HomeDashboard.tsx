@@ -32,7 +32,7 @@ const HomeDashboard: React.FC = () => {
                         </div>
                         <div className="mt-4 md:mt-0">
                             <Link to="/chat" state={{ mode: 'voice' }} className="bg-white text-blue-600 font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gray-100 transition-transform transform hover:scale-105">
-                                Go to IA Chat
+                                Talk Now
                             </Link>
                         </div>
                     </div>
