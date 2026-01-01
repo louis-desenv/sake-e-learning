@@ -93,6 +93,8 @@ export default defineAgent({
         console.log('Continuing with voice agent only (avatar failed)');
       }
 
+      let roomTimeout;
+
       // Handle participant events to properly cleanup sessions when users disconnect
       ctx.room.on('participantDisconnected', async (participant) => {
         console.log('🔴 PARTICIPANT DISCONNECTED EVENT:', participant.identity);
@@ -101,33 +103,50 @@ export default defineAgent({
         console.log('🔴 Total participants in room:', ctx.room.numParticipants);
 
         if (remainingParticipants === 0) {
-          console.log('🔴 NO PARTICIPANTS LEFT - Starting emergency cleanup...');
+          console.log('🔴 NO PARTICIPANTS LEFT - Starting 30-second cleanup timeout...');
 
-          try {
-            // Stop Bey avatar session first (most important for concurrency limit)
-            if (beyAvatarSession) {
-              console.log('🔴 Stopping Bey avatar session...');
-              await beyAvatarSession.stop();
-              console.log('✅ Bey avatar session stopped successfully');
-              beyAvatarSession = null; // Clear reference
+          // Clear any existing timeout
+          if (roomTimeout) clearTimeout(roomTimeout);
+
+          // Set timeout to exit after 30 seconds of no participants
+          roomTimeout = setTimeout(async () => {
+            console.log('🔴 CLEANUP TIMEOUT EXPIRED - No participants rejoined, exiting...');
+
+            try {
+              // Stop Bey avatar session first (most important for concurrency limit)
+              if (beyAvatarSession) {
+                console.log('🔴 Stopping Bey avatar session...');
+                await beyAvatarSession.stop();
+                console.log('✅ Bey avatar session stopped successfully');
+                beyAvatarSession = null; // Clear reference
+              }
+
+              // Stop voice agent session
+              if (voiceAgentSession) {
+                console.log('🔴 Stopping voice agent session...');
+                await voiceAgentSession.stop();
+                console.log('✅ Voice agent session stopped successfully');
+                voiceAgentSession = null; // Clear reference
+              }
+
+              console.log('✅ All sessions stopped - forcing agent exit');
+              // Force exit the agent job
+              process.exit(0);
+            } catch (error) {
+              console.error('❌ Error stopping sessions:', error);
+              // Still try to exit
+              process.exit(1);
             }
+          }, 30000); // 30 seconds
+        }
+      });
 
-            // Stop voice agent session
-            if (voiceAgentSession) {
-              console.log('🔴 Stopping voice agent session...');
-              await voiceAgentSession.stop();
-              console.log('✅ Voice agent session stopped successfully');
-              voiceAgentSession = null; // Clear reference
-            }
-
-            console.log('✅ All sessions stopped - forcing agent exit');
-            // Force exit the agent job
-            process.exit(0);
-          } catch (error) {
-            console.error('❌ Error stopping sessions:', error);
-            // Still try to exit
-            process.exit(1);
-          }
+      // Clear timeout if participant rejoins
+      ctx.room.on('participantConnected', () => {
+        if (roomTimeout) {
+          console.log('🟢 PARTICIPANT REJOINED - Clearing cleanup timeout');
+          clearTimeout(roomTimeout);
+          roomTimeout = null;
         }
       });
 
