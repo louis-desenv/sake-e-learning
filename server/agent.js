@@ -1,3 +1,22 @@
+
+import express from 'express';
+
+// HTTP server for Render health checks
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.json({ status: 'LiveKit Agent Running', timestamp: new Date().toISOString() });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'healthy' });
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Health server running on port ${PORT}`);
+});
+
 import { fileURLToPath } from "node:url";
 
 import {

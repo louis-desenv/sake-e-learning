@@ -12,6 +12,7 @@
     "agent": "node server/agent.js"
   },
   "dependencies": {
+     "express": "^4.18.0",
     "@google/genai": "^1.27.0",
     "@livekit/agents": "^1.0.22",
     "@livekit/agents-plugin-bey": "^1.0.12",
