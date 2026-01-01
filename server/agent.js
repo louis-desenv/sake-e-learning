@@ -1,22 +1,3 @@
-
-import express from 'express';
-
-// HTTP server for Render health checks
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.get('/', (req, res) => {
-  res.json({ status: 'LiveKit Agent Running', timestamp: new Date().toISOString() });
-});
-
-app.get('/health', (req, res) => {
-  res.json({ status: 'healthy' });
-});
-
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Health server running on port ${PORT}`);
-});
-
 import { fileURLToPath } from "node:url";
 
 import {
@@ -112,8 +93,6 @@ export default defineAgent({
         console.log('Continuing with voice agent only (avatar failed)');
       }
 
-      let roomTimeout;
-
       // Handle participant events to properly cleanup sessions when users disconnect
       ctx.room.on('participantDisconnected', async (participant) => {
         console.log('🔴 PARTICIPANT DISCONNECTED EVENT:', participant.identity);
@@ -122,50 +101,33 @@ export default defineAgent({
         console.log('🔴 Total participants in room:', ctx.room.numParticipants);
 
         if (remainingParticipants === 0) {
-          console.log('🔴 NO PARTICIPANTS LEFT - Starting 30-second cleanup timeout...');
+          console.log('🔴 NO PARTICIPANTS LEFT - Starting emergency cleanup...');
 
-          // Clear any existing timeout
-          if (roomTimeout) clearTimeout(roomTimeout);
-
-          // Set timeout to exit after 30 seconds of no participants
-          roomTimeout = setTimeout(async () => {
-            console.log('🔴 CLEANUP TIMEOUT EXPIRED - No participants rejoined, exiting...');
-
-            try {
-              // Stop Bey avatar session first (most important for concurrency limit)
-              if (beyAvatarSession) {
-                console.log('🔴 Stopping Bey avatar session...');
-                await beyAvatarSession.stop();
-                console.log('✅ Bey avatar session stopped successfully');
-                beyAvatarSession = null; // Clear reference
-              }
-
-              // Stop voice agent session
-              if (voiceAgentSession) {
-                console.log('🔴 Stopping voice agent session...');
-                await voiceAgentSession.stop();
-                console.log('✅ Voice agent session stopped successfully');
-                voiceAgentSession = null; // Clear reference
-              }
-
-              console.log('✅ All sessions stopped - forcing agent exit');
-              // Force exit the agent job
-              process.exit(0);
-            } catch (error) {
-              console.error('❌ Error stopping sessions:', error);
-              // Still try to exit
-              process.exit(1);
+          try {
+            // Stop Bey avatar session first (most important for concurrency limit)
+            if (beyAvatarSession) {
+              console.log('🔴 Stopping Bey avatar session...');
+              await beyAvatarSession.stop();
+              console.log('✅ Bey avatar session stopped successfully');
+              beyAvatarSession = null; // Clear reference
             }
-          }, 30000); // 30 seconds
-        }
-      });
 
-      // Clear timeout if participant rejoins
-      ctx.room.on('participantConnected', () => {
-        if (roomTimeout) {
-          console.log('🟢 PARTICIPANT REJOINED - Clearing cleanup timeout');
-          clearTimeout(roomTimeout);
-          roomTimeout = null;
+            // Stop voice agent session
+            if (voiceAgentSession) {
+              console.log('🔴 Stopping voice agent session...');
+              await voiceAgentSession.stop();
+              console.log('✅ Voice agent session stopped successfully');
+              voiceAgentSession = null; // Clear reference
+            }
+
+            console.log('✅ All sessions stopped - forcing agent exit');
+            // Force exit the agent job
+            process.exit(0);
+          } catch (error) {
+            console.error('❌ Error stopping sessions:', error);
+            // Still try to exit
+            process.exit(1);
+          }
         }
       });
 
@@ -189,6 +151,24 @@ export default defineAgent({
     } catch (error) {
       console.error('Error in agent session:', error);
 
+      // Cleanup on error
+      try {
+        if (voiceAgentSession) {
+          await voiceAgentSession.stop();
+        }
+        if (beyAvatarSession) {
+          await beyAvatarSession.stop();
+        }
+      } catch (cleanupError) {
+        console.error('Error during cleanup:', cleanupError);
+      }
+    }
+  },
+});
+
+// Overwrite args for the LiveKit CLI
+process.argv = [process.argv[0], process.argv[1], "dev"];
+cli.runApp(new WorkerOptions({ agent: fileURLToPath(import.meta.url) }));
       // Cleanup on error
       try {
         if (voiceAgentSession) {
