@@ -23,8 +23,14 @@ const AppLayout: React.FC = () => {
   const showHomeButton = location.pathname !== '/home' && location.pathname !== '/';
 
   return (
+
+    
     <>
-      {showHomeButton && (
+      {
+      
+    
+
+      showHomeButton && (
         <Link 
           to="/home" 
           aria-label="Back to Home"
