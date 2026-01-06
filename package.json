@@ -6,10 +6,6 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "optionalDependencies": {
-    "@livekit/rtc-node-linux-x64-musl": "^0.3.0",
-    "@livekit/rtc-node-linux-x64-gnu": "^0.3.0"
-  },
   "scripts": {
     "dev": "npm run proxy & npm run agent & vite",
     "build": "vite build",
