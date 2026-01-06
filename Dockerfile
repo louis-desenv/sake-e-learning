@@ -1,21 +1,26 @@
-# Use Node.js 18 on Alpine Linux for a small footprint
-FROM node:18-alpine
+# Use Node.js 20 on Debian Slim (better for native modules like LiveKit than Alpine)
+FROM node:20-slim
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files first to cache dependencies
+# Install necessary system dependencies for native modules (if any)
+# LiveKit usually needs some basics if prebuilds fail, but slim + glibc covers most cases.
+# We update apt-get just in case we need to add libs later.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy package files first
 COPY package.json package-lock.json ./
 
-# Install dependencies (only production if you want strictly prod, but usually safe to install all for agents)
-# omitting --production to ensure all livekit plugins are available if they were saved improperly, 
-# but mostly 'npm ci' is best for lock file respect.
+# Install dependencies
 RUN npm ci
 
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the health check server runs on (defined in server/agent.js)
+# Expose the port
 EXPOSE 3000
 
 # Command to run the agent
