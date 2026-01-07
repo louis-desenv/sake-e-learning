@@ -2,6 +2,9 @@ import 'dotenv/config';
 import express from 'express';
 
 // HTTP server for Render/DO health checks
+// COMMENTED OUT: LiveKit CLI's runApp() starts its own health server on port 3000 by default
+// causing EADDRINUSE if we try to start another one here.
+/*
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +19,7 @@ app.get('/health', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Health server running on port ${PORT}`);
 });
+*/
 
 import { fileURLToPath } from "node:url";
 
