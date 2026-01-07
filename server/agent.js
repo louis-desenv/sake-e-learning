@@ -215,4 +215,10 @@ export default defineAgent({
 
 // Run the agent using the worker options
 // Remove explicit 'dev' argument to allow production runs
-cli.runApp(new WorkerOptions({ agent: fileURLToPath(import.meta.url) }));
+// Run the agent using the worker options
+// Remove explicit 'dev' argument to allow production runs
+// Port 3000 matches Digital Ocean's App Platform default HTTP port
+cli.runApp(new WorkerOptions({
+  agent: fileURLToPath(import.meta.url),
+  port: 3000
+}));
