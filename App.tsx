@@ -1,12 +1,15 @@
 
 import React from 'react';
 import { HashRouter, Routes, Route, Navigate, useLocation, Link, Outlet } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import { UserProvider } from './context/UserContext';
 import useLocalStorage from './hooks/useLocalStorage';
 import type { UserProfile } from './types';
 
 import Onboarding from './components/Onboarding';
 import Login from './pages/Login';
+import Register from './pages/Register';
+import PrivateRoute from './components/PrivateRoute';
 import BottomNav from './components/BottomNav';
 import PageTransition from './components/PageTransition';
 import HomeDashboard from './pages/HomeDashboard';
@@ -53,33 +56,56 @@ const AppLayout: React.FC = () => {
 const App: React.FC = () => {
   const [userProfile, setUserProfile] = useLocalStorage<UserProfile | null>('userProfile', null);
 
-  if (!userProfile) {
-    return (
-        <Login onLoginComplete={setUserProfile} />
-    );
-  }
-
   return (
-    <UserProvider value={userProfile}>
+    <AuthProvider>
       <HashRouter>
         <div className="min-h-screen bg-blue-50/50 font-sans">
-          <main className="pb-20 md:pb-0">
-             <Routes>
-                <Route element={<AppLayout />}>
-                  <Route path="/" element={<Navigate to="/home" />} />
-                  <Route path="/home" element={<HomeDashboard />} />
-                  <Route path="/chat" element={<IaChat />} />
-                  <Route path="/guided-learning" element={<GuidedLearning />} />
-                  <Route path="/library" element={<IaLibrary />} />
-                  <Route path="/profile" element={<MyProfile />} />
-                  <Route path="/livekit-chat" element={<AudioOnlyChat />} />
-                </Route>
-             </Routes>
-          </main>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
+            {/* Protected Routes */}
+            <Route element={<PrivateRoute><AppLayout /></PrivateRoute>}>
+              <Route path="/" element={<Navigate to="/home" />} />
+              <Route path="/home" element={
+                <UserProvider value={userProfile}>
+                  <HomeDashboard />
+                </UserProvider>
+              } />
+              <Route path="/chat" element={
+                <UserProvider value={userProfile}>
+                  <IaChat />
+                </UserProvider>
+              } />
+              <Route path="/guided-learning" element={
+                <UserProvider value={userProfile}>
+                  <GuidedLearning />
+                </UserProvider>
+              } />
+              <Route path="/library" element={
+                <UserProvider value={userProfile}>
+                  <IaLibrary />
+                </UserProvider>
+              } />
+              <Route path="/profile" element={
+                <UserProvider value={userProfile}>
+                  <MyProfile />
+                </UserProvider>
+              } />
+              <Route path="/livekit-chat" element={
+                <UserProvider value={userProfile}>
+                  <AudioOnlyChat />
+                </UserProvider>
+              } />
+            </Route>
+          </Routes>
+
+          {/* Show BottomNav only on protected routes */}
           <BottomNav />
         </div>
       </HashRouter>
-    </UserProvider>
+    </AuthProvider>
   );
 };
 
