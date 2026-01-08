@@ -32,7 +32,7 @@ export const sendChatMessage = async (message: string, conversationHistory: stri
             : `${basePrompt}Respond to this message: ${message}`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-1.0-pro',
+            model: 'gemini-2.5-flash',
             contents: prompt,
         });
         return response.text;
