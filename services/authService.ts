@@ -1,7 +1,7 @@
 // authService.ts - Integration with ASP.NET Core Identity API
 
-// API rodando localmente na porta 5259
-const API_BASE_URL = 'http://localhost:5259';
+// API URL from environment or default to local
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5259';
 
 export interface RegisterRequest {
   email: string;
