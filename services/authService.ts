@@ -1,12 +1,11 @@
 // authService.ts - Integration with ASP.NET Core Identity API
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://your-api-url.com/api';
+// API rodando localmente na porta 5259
+const API_BASE_URL = 'http://localhost:5259';
 
 export interface RegisterRequest {
   email: string;
   password: string;
-  confirmPassword: string;
-  name?: string;
 }
 
 export interface LoginRequest {
@@ -14,6 +13,7 @@ export interface LoginRequest {
   password: string;
 }
 
+// Formato esperado pelo AuthContext.tsx
 export interface AuthResponse {
   token: string;
   refreshToken?: string;
@@ -26,8 +26,17 @@ export interface AuthResponse {
   };
 }
 
+// Formato retornado pela API do Identity
+interface IdentityLoginResponse {
+  tokenType: string;
+  accessToken: string;
+  expiresIn: number;
+  refreshToken: string;
+}
+
 export interface ApiError {
   message: string;
+  title?: string;
   errors?: Record<string, string[]>;
 }
 
@@ -35,10 +44,31 @@ class AuthService {
   private readonly baseUrl = API_BASE_URL;
 
   /**
+   * Converte resposta do Identity para formato esperado pelo AuthContext
+   */
+  private convertResponse(response: IdentityLoginResponse, email: string): AuthResponse {
+    // Calcula data de expiração
+    const expirationDate = new Date();
+    expirationDate.setSeconds(expirationDate.getSeconds() + response.expiresIn);
+
+    return {
+      token: response.accessToken,
+      refreshToken: response.refreshToken,
+      expiration: expirationDate.toISOString(),
+      user: {
+        id: 'current', // API não retorna ID no login
+        email: email,
+        name: email.split('@')[0], // Usa parte do email como nome
+      },
+    };
+  }
+
+  /**
    * Register a new user
+   * Endpoint nativo do Identity: POST /register
    */
   async register(data: RegisterRequest): Promise<AuthResponse> {
-    const response = await fetch(`${this.baseUrl}/auth/register`, {
+    const response = await fetch(`${this.baseUrl}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,18 +77,20 @@ class AuthService {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(error.message || 'Registration failed');
+      const error = await response.json();
+      throw new Error(error.title || error.message || 'Registration failed');
     }
 
-    return response.json();
+    // Após registro, faz login automático
+    return this.login({ email: data.email, password: data.password });
   }
 
   /**
    * Login user
+   * Endpoint nativo do Identity: POST /login
    */
   async login(data: LoginRequest): Promise<AuthResponse> {
-    const response = await fetch(`${this.baseUrl}/auth/login`, {
+    const response = await fetch(`${this.baseUrl}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,36 +99,49 @@ class AuthService {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(error.message || 'Login failed');
+      const errorText = await response.text();
+      let errorMessage = 'Login failed';
+      try {
+        const error = JSON.parse(errorText);
+        errorMessage = error.title || error.message || 'Invalid credentials';
+      } catch {
+        errorMessage = errorText || 'Invalid credentials';
+      }
+      throw new Error(errorMessage);
     }
 
-    return response.json();
+    const result: IdentityLoginResponse = await response.json();
+    return this.convertResponse(result, data.email);
   }
 
   /**
-   * Logout user (optional - if API has logout endpoint)
+   * Logout user
+   * Endpoint customizado: POST /logout
    */
-  async logout(token: string): Promise<void> {
-    try {
-      await fetch(`${this.baseUrl}/auth/logout`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-    } catch (error) {
-      console.error('Logout error:', error);
-      // Continue with local logout even if API call fails
+  async logout(token?: string): Promise<void> {
+    const authToken = token || localStorage.getItem('authToken');
+    
+    if (authToken) {
+      try {
+        await fetch(`${this.baseUrl}/logout`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+      } catch (error) {
+        console.error('Logout error:', error);
+      }
     }
   }
 
   /**
    * Refresh access token
+   * Endpoint nativo: POST /refresh
    */
   async refreshToken(refreshToken: string): Promise<AuthResponse> {
-    const response = await fetch(`${this.baseUrl}/auth/refresh`, {
+    const response = await fetch(`${this.baseUrl}/refresh`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -108,30 +153,17 @@ class AuthService {
       throw new Error('Token refresh failed');
     }
 
-    return response.json();
+    const result: IdentityLoginResponse = await response.json();
+    
+    // Recupera email do localStorage
+    const storedUser = localStorage.getItem('user');
+    const email = storedUser ? JSON.parse(storedUser).email : 'user';
+    
+    return this.convertResponse(result, email);
   }
 
   /**
-   * Get current user info
-   */
-  async getCurrentUser(token: string): Promise<AuthResponse['user']> {
-    const response = await fetch(`${this.baseUrl}/auth/me`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch user info');
-    }
-
-    return response.json();
-  }
-
-  /**
-   * Validate token (check if still valid)
+   * Check if token is expired
    */
   isTokenExpired(expiration: string): boolean {
     const expirationDate = new Date(expiration);
