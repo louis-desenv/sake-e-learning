@@ -1,7 +1,7 @@
 // authService.ts - Integration with ASP.NET Core Identity API
 
 // API URL from environment or default to local
-let apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5259';
+let apiUrl = import.meta.env.VITE_API_URL || 'https://sakaeelearningwebapi-production.up.railway.app/api/v1/auth';
 
 // Remove aspas extras se existirem (comum em env vars mal configuradas)
 apiUrl = apiUrl.replace(/['"]+/g, '');
@@ -125,7 +125,7 @@ class AuthService {
    */
   async logout(token?: string): Promise<void> {
     const authToken = token || localStorage.getItem('authToken');
-    
+
     if (authToken) {
       try {
         await fetch(`${this.baseUrl}/logout`, {
@@ -159,11 +159,11 @@ class AuthService {
     }
 
     const result: IdentityLoginResponse = await response.json();
-    
+
     // Recupera email do localStorage
     const storedUser = localStorage.getItem('user');
     const email = storedUser ? JSON.parse(storedUser).email : 'user';
-    
+
     return this.convertResponse(result, email);
   }
 
