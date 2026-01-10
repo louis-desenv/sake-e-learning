@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AuthResponse } from '../types';
 
-const API_URL = 'http://localhost:8081/api/v1/auth';
+const API_URL = 'https://sakaeelearningwebapi-production.up.railway.app/api/v1/auth';
 
 const api = axios.create({
     baseURL: API_URL,
