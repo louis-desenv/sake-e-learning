@@ -33,10 +33,15 @@ export async function generateLiveKitToken(options: TokenGeneratorOptions): Prom
         video: {
             room: roomName,
             roomJoin: true,
+            roomCreate: true,  // Allow room creation
             canPublish: true,
             canPublishData: true,
             canSubscribe: true,
         },
+        // Explicit agent dispatch - forces agent to join when room is created
+        roomAgentDispatches: [{
+            agentName: ""  // Empty string dispatches default agent
+        }],
         sip: {
             admin: true,
             call: true,
