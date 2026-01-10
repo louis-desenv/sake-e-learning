@@ -66,7 +66,8 @@ export const LIVEKIT_CONFIG = {
     apiKey: import.meta.env.VITE_LIVEKIT_API_KEY || 'API4DzuzbMC3E9X',
     apiSecret: import.meta.env.VITE_LIVEKIT_API_SECRET || 'DseZQ3MOPSmSILraZdlwjAuRNeNhuXhQBeWhWfSHYf8G',
 
-    // Default room name - use fixed name for agent dispatch
-    // Using fixed name to ensure agent dispatch works correctly
-    roomName: 'sakae-learning-room',
+    // Default room name - use unique room for each session to avoid conflicts
+    get roomName() {
+        return `sakae-learning-${Date.now()}`;
+    }
 };
