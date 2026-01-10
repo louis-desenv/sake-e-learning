@@ -43,22 +43,12 @@ const liveKitUrl = process.env.LIVEKIT_URL;
 const liveKitApiKey = process.env.LIVEKIT_API_KEY;
 const liveKitApiSecret = process.env.LIVEKIT_API_SECRET;
 
-// ====== DEBUG LOGS ======
-console.log('========================================');
-console.log('🚀 AGENT STARTING - Environment Check:');
-console.log('========================================');
-console.log('OPENAI_API_KEY:', openAiKey ? '✅ SET (' + openAiKey.substring(0, 10) + '...)' : '❌ NOT SET');
-console.log('BEY_API_KEY:', beyApiKey ? '✅ SET (' + beyApiKey.substring(0, 10) + '...)' : '❌ NOT SET');
-console.log('BEY_AVATAR_ID:', beyAvatarId ? '✅ SET (' + beyAvatarId + ')' : '❌ NOT SET');
-console.log('LIVEKIT_URL:', liveKitUrl ? '✅ SET (' + liveKitUrl + ')' : '❌ NOT SET');
-console.log('LIVEKIT_API_KEY:', liveKitApiKey ? '✅ SET (' + liveKitApiKey + ')' : '❌ NOT SET');
-console.log('LIVEKIT_API_SECRET:', liveKitApiSecret ? '✅ SET (hidden)' : '❌ NOT SET');
-console.log('========================================');
+
 
 // Validation (optional but recommended for debugging deployment)
-if (!openAiKey) console.warn("⚠️ WARNING: OPENAI_API_KEY is not set");
-if (!beyApiKey) console.warn("⚠️ WARNING: BEY_API_KEY is not set");
-if (!liveKitUrl) console.warn("⚠️ WARNING: LIVEKIT_URL is not set");
+if (!openAiKey) console.warn("WARNING: OPENAI_API_KEY is not set");
+if (!beyApiKey) console.warn("WARNING: BEY_API_KEY is not set");
+if (!liveKitUrl) console.warn("WARNING: LIVEKIT_URL is not set");
 
 export default defineAgent({
   identity: 'CA_PRhwL82rAFvV',
