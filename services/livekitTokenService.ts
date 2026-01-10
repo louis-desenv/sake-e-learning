@@ -37,11 +37,12 @@ export async function generateLiveKitToken(options: TokenGeneratorOptions): Prom
             canPublish: true,
             canPublishData: true,
             canSubscribe: true,
+            // Explicit agent dispatch - forces agent to join when room is created
+            // Using empty string to match any available agent
+            roomAgentDispatch: {
+                agentName: "",
+            },
         },
-        // Explicit agent dispatch - forces agent to join when room is created
-        roomAgentDispatches: [{
-            agentName: ""  // Empty string dispatches default agent
-        }],
         sip: {
             admin: true,
             call: true,

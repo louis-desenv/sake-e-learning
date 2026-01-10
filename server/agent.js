@@ -227,6 +227,11 @@ export default defineAgent({
 
 // Run the agent using the worker options
 // Remove explicit 'dev' argument to allow production runs
-// Run the agent using the worker options
-// Remove explicit 'dev' argument to allow production runs
-cli.runApp(new WorkerOptions({ agent: fileURLToPath(import.meta.url) }));
+// Configure port to match environment (crucial for DigitalOcean health checks)
+const port = parseInt(process.env.PORT || '8081');
+console.log(`Starting agent worker on port ${port}...`);
+
+cli.runApp(new WorkerOptions({
+  agent: fileURLToPath(import.meta.url),
+  port: port
+}));
