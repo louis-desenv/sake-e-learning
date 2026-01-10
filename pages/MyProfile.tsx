@@ -1,26 +1,22 @@
+
 import React from 'react';
-import { useUser, useAuth } from '../context/UserContext';
+import { useUser } from '../context/UserContext';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
-  { name: 'Mon', hours: 2 },
-  { name: 'Tue', hours: 3 },
-  { name: 'Wed', hours: 1.5 },
-  { name: 'Thu', hours: 4 },
-  { name: 'Fri', hours: 2.5 },
-  { name: 'Sat', hours: 5 },
-  { name: 'Sun', hours: 1 },
+    { name: 'Mon', hours: 2 },
+    { name: 'Tue', hours: 3 },
+    { name: 'Wed', hours: 1.5 },
+    { name: 'Thu', hours: 4 },
+    { name: 'Fri', hours: 2.5 },
+    { name: 'Sat', hours: 5 },
+    { name: 'Sun', hours: 1 },
 ];
 
 const MyProfile: React.FC = () => {
-    const user = useUser();
-    const { logout } = useAuth();
+    const { user, logout } = useUser();
 
-    const handleLogout = async () => {
-        if (confirm('Tem certeza que deseja sair?')) {
-            await logout();
-        }
-    };
+    if (!user) return null;
 
     return (
         <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
@@ -32,15 +28,14 @@ const MyProfile: React.FC = () => {
                         <p className="text-gray-500 mt-1">{user.level} Learner</p>
                     </div>
                 </div>
-                {/* Logout Button */}
                 <button
-                    onClick={handleLogout}
-                    className="flex items-center space-x-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors shadow-md"
+                    onClick={logout}
+                    className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-medium text-sm flex items-center gap-2"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1H3zm11 4.414l-4.293 4.293a1 1 0 01-1.414-1.414L11.586 7H6a1 1 0 110-2h5.586L8.293 1.707a1 1 0 011.414-1.414L14 4.586V7.414z" clipRule="evenodd" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                     </svg>
-                    <span>Logout</span>
+                    Logout
                 </button>
             </header>
 
@@ -53,26 +48,26 @@ const MyProfile: React.FC = () => {
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                 <XAxis dataKey="name" />
                                 <YAxis />
-                                <Tooltip cursor={{fill: 'rgba(239, 246, 255, 0.6)'}}/>
+                                <Tooltip cursor={{ fill: 'rgba(239, 246, 255, 0.6)' }} />
                                 <Bar dataKey="hours" fill="#3b82f6" radius={[4, 4, 0, 0]} />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
                 <div className="bg-white p-6 rounded-2xl shadow-lg">
-                     <h2 className="text-xl font-bold text-gray-800 mb-4">Learning Goals</h2>
-                     <ul className="space-y-3">
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">Learning Goals</h2>
+                    <ul className="space-y-3">
                         {user.goals.map(goal => (
                             <li key={goal} className="flex items-center space-x-3 bg-blue-50 p-3 rounded-lg">
                                 <span className="text-blue-500">✓</span>
                                 <span className="text-gray-700">{goal}</span>
                             </li>
                         ))}
-                     </ul>
-                      <h2 className="text-xl font-bold text-gray-800 mt-6 mb-4">Native Language</h2>
-                      <div className="bg-gray-100 p-3 rounded-lg">
-                         <p className="text-gray-700">{user.nativeLanguage}</p>
-                      </div>
+                    </ul>
+                    <h2 className="text-xl font-bold text-gray-800 mt-6 mb-4">Native Language</h2>
+                    <div className="bg-gray-100 p-3 rounded-lg">
+                        <p className="text-gray-700">{user.nativeLanguage}</p>
+                    </div>
                 </div>
             </div>
         </div>

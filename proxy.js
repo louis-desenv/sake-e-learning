@@ -47,6 +47,6 @@ wss.on('connection', (clientWs) => {
   });
 });
 
-server.listen(8081, () => {
-  console.log('Proxy server listening on ws://localhost:8081');
+server.listen(8082, () => {
+  console.log('Proxy server listening on ws://localhost:8082');
 });

@@ -5,7 +5,7 @@ import { ConnectionState } from 'livekit-client';
 import { useUser } from '../context/UserContext';
 
 const LiveKitChat: React.FC = () => {
-    const user = useUser();
+    const { user } = useUser();
     const {
         isConnected,
         connectionState,
@@ -101,7 +101,7 @@ const LiveKitChat: React.FC = () => {
 
             <div className="flex flex-col items-center justify-center">
                 <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-6 space-y-4">
-                    
+
                     {/* Connection Info Banner */}
                     <div className={`p-4 rounded-xl border ${isConnected ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-200' : 'bg-gradient-to-r from-orange-50 to-amber-50 border-orange-200'}`}>
                         <div className="flex items-center justify-between">
@@ -112,7 +112,7 @@ const LiveKitChat: React.FC = () => {
                                         {isConnected ? 'LiveKit Voice Agent' : 'Ready to Connect'}
                                     </h3>
                                     <p className="text-sm text-gray-600">
-                                        {isConnected 
+                                        {isConnected
                                             ? `${participants.length} participant(s) in room`
                                             : `Room: ${LIVEKIT_CONFIG.roomName}`
                                         }
@@ -144,12 +144,11 @@ const LiveKitChat: React.FC = () => {
                                 {[...Array(5)].map((_, i) => (
                                     <div
                                         key={i}
-                                        className={`w-2 bg-orange-500 rounded-full transition-all duration-150 ${
-                                            isAgentSpeaking ? 'animate-pulse' : ''
-                                        }`}
+                                        className={`w-2 bg-orange-500 rounded-full transition-all duration-150 ${isAgentSpeaking ? 'animate-pulse' : ''
+                                            }`}
                                         style={{
-                                            height: isAgentSpeaking 
-                                                ? `${20 + Math.random() * 40}px` 
+                                            height: isAgentSpeaking
+                                                ? `${20 + Math.random() * 40}px`
                                                 : '20px',
                                             animationDelay: `${i * 0.1}s`
                                         }}

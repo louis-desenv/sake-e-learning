@@ -46,15 +46,15 @@ const HangUpIcon = ({ className }: { className?: string }) => (
 
 const ConnectingSpinner = () => (
   <div className="flex flex-col items-center justify-center space-y-6">
-    
+
     {/* Multi-ring spinner */}
     <div className="relative w-32 h-32">
-      
+
       {/* Glow effect */}
       <div className="absolute inset-0 rounded-full bg-purple-500/30 blur-2xl animate-pulse" />
-      
+
       {/* Ring 1 - outer (slow) */}
-      <div 
+      <div
         className="absolute inset-0 rounded-full border-4 border-purple-500/20"
         style={{
           borderTopColor: '#a855f7',
@@ -62,9 +62,9 @@ const ConnectingSpinner = () => (
           animation: 'spin 3s linear infinite',
         }}
       />
-      
+
       {/* Ring 2 - middle (medium, reverse) */}
-      <div 
+      <div
         className="absolute inset-4 rounded-full border-4 border-purple-500/20"
         style={{
           borderTopColor: '#c084fc',
@@ -72,9 +72,9 @@ const ConnectingSpinner = () => (
           animation: 'spin 2s linear infinite reverse',
         }}
       />
-      
+
       {/* Ring 3 - inner (fast) */}
-      <div 
+      <div
         className="absolute inset-8 rounded-full border-4 border-purple-500/20"
         style={{
           borderTopColor: '#e9d5ff',
@@ -82,7 +82,7 @@ const ConnectingSpinner = () => (
           animation: 'spin 1s linear infinite',
         }}
       />
-      
+
       {/* Center icon with pulse */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative">
@@ -94,9 +94,9 @@ const ConnectingSpinner = () => (
           </div>
         </div>
       </div>
-      
+
     </div>
-    
+
     {/* Status text with animated dots */}
     <div className="text-center">
       <p className="text-white text-xl font-medium tracking-wide flex items-center justify-center">
@@ -111,24 +111,24 @@ const ConnectingSpinner = () => (
         Loading avatar, please wait...
       </p>
     </div>
-    
+
     {/* Progress bar (fake, for visual feedback) */}
     <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
-      <div 
+      <div
         className="h-full bg-gradient-to-r from-purple-500 to-purple-300 rounded-full"
         style={{
           animation: 'progress 2s ease-in-out infinite',
         }}
       />
     </div>
-    
+
   </div>
 );
 
 /* ================= MAIN COMPONENT ================= */
 
 const VoiceChatUI: React.FC = () => {
-  const user = useUser();
+  const { user } = useUser();
 
   const {
     isConnected,
@@ -307,8 +307,8 @@ const VoiceChatUI: React.FC = () => {
               flex items-center justify-center 
               shadow-xl text-white 
               transition-all duration-200
-              ${isGeneratingToken 
-                ? 'bg-purple-900 opacity-60 cursor-not-allowed' 
+              ${isGeneratingToken
+                ? 'bg-purple-900 opacity-60 cursor-not-allowed'
                 : 'bg-gradient-to-br from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 hover:scale-105'
               }
             `}
@@ -324,7 +324,7 @@ const VoiceChatUI: React.FC = () => {
         {/* AFTER CALL READY → FULL CONTROLS */}
         {isCallReady && (
           <div className="flex items-center space-x-4 animate-fade-in">
-            
+
             {/* Camera */}
             <button
               onClick={cameraOn ? closeCamera : openCamera}

@@ -7,7 +7,7 @@ import { useUser } from '../context/UserContext';
 import axios from 'axios';
 
 const AudioOnlyChat: React.FC = () => {
-  const user = useUser();
+  const { user } = useUser();
   const {
     isConnected,
     connectionState,
@@ -116,9 +116,8 @@ const AudioOnlyChat: React.FC = () => {
             {participants.slice(0, 4).map((p, idx) => (
               <div
                 key={idx}
-                className={`w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 flex items-center justify-center text-xs font-semibold text-gray-700 shadow-md ${
-                  p.isSpeaking ? 'ring-2 ring-emerald-400' : ''
-                }`}
+                className={`w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 flex items-center justify-center text-xs font-semibold text-gray-700 shadow-md ${p.isSpeaking ? 'ring-2 ring-emerald-400' : ''
+                  }`}
                 title={p.identity || 'Participant'}
               >
                 {(p.identity && p.identity.length > 0 ? p.identity.charAt(0).toUpperCase() : '?')}
@@ -164,22 +163,22 @@ const AudioOnlyChat: React.FC = () => {
               </div>
             </div>
 
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={isConnected ? handleDisconnect : handleConnect}
-                  disabled={isGeneratingToken || connectionState === ConnectionState.Connecting}
-                  className={`flex items-center space-x-2 px-4 py-3 rounded-full text-white font-medium transition ${isConnected ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-500 hover:bg-emerald-600'}`}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    {isConnected ? (
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L10 8.586 7.707 6.293a1 1 0 10-1.414 1.414L8.586 10l-2.293 2.293a1 1 0 001.414 1.414L10 11.414l2.293 2.293a1 1 0 001.414-1.414L11.414 10l2.293-2.293z" clipRule="evenodd" />
-                    ) : (
-                      <path d="M2.003 5.884l8-3a1 1 0 01.994 0l8 3A1 1 0 0119 6.764v6.472a1 1 0 01-.676.948l-8 3a1 1 0 01-.648 0l-8-3A1 1 0 011 13.236V6.764a1 1 0 011.003-.88z" />
-                    )}
-                  </svg>
-                  <span className="text-sm">{isConnected ? 'End Call' : 'Start Call'}</span>
-                </button>
-              </div>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={isConnected ? handleDisconnect : handleConnect}
+                disabled={isGeneratingToken || connectionState === ConnectionState.Connecting}
+                className={`flex items-center space-x-2 px-4 py-3 rounded-full text-white font-medium transition ${isConnected ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-500 hover:bg-emerald-600'}`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  {isConnected ? (
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L10 8.586 7.707 6.293a1 1 0 10-1.414 1.414L8.586 10l-2.293 2.293a1 1 0 001.414 1.414L10 11.414l2.293 2.293a1 1 0 001.414-1.414L11.414 10l2.293-2.293z" clipRule="evenodd" />
+                  ) : (
+                    <path d="M2.003 5.884l8-3a1 1 0 01.994 0l8 3A1 1 0 0119 6.764v6.472a1 1 0 01-.676.948l-8 3a1 1 0 01-.648 0l-8-3A1 1 0 011 13.236V6.764a1 1 0 011.003-.88z" />
+                  )}
+                </svg>
+                <span className="text-sm">{isConnected ? 'End Call' : 'Start Call'}</span>
+              </button>
+            </div>
           </div>
         </div>
 

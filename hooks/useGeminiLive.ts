@@ -16,7 +16,7 @@ interface LiveSession {
 }
 
 export const useGeminiLive = () => {
-    const userProfile = useUser();
+    const { user: userProfile } = useUser();
     const [isSessionActive, setIsSessionActive] = useState(false);
     const [isAwaitingResponse, setIsAwaitingResponse] = useState(false);
     const [userTranscript, setUserTranscript] = useState('');
@@ -97,7 +97,7 @@ export const useGeminiLive = () => {
                     onopen: () => {
                         const source = inputAudioContextRef.current!.createMediaStreamSource(stream);
                         mediaStreamSourceRef.current = source;
-                        
+
                         if (analyserNodeCallback) {
                             const analyser = inputAudioContextRef.current!.createAnalyser();
                             analyser.fftSize = 2048;

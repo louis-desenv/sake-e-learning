@@ -7,7 +7,7 @@ import { ChatIcon, BookOpenIcon, VideoCameraIcon, UserCircleIcon, MicrophoneIcon
 
 
 const HomeDashboard: React.FC = () => {
-    const user = useUser();
+    const { user } = useUser();
 
     const getGreeting = () => {
         const hour = new Date().getHours();
@@ -38,42 +38,42 @@ const HomeDashboard: React.FC = () => {
                     </div>
                 </div>
 
-                <Card 
-                    title="Guided Learning" 
+                <Card
+                    title="Guided Learning"
                     description="Structured lessons on grammar, vocabulary, and more."
                     icon={<BookOpenIcon />}
                     to="/guided-learning"
                     color="border-t-green-500"
                 />
-                <Card 
-                    title="IA Library" 
+                <Card
+                    title="IA Library"
                     description="Explore videos and learning resources."
                     icon={<VideoCameraIcon />}
                     to="/library"
                     color="border-t-purple-500"
                 />
-                 <Card 
-                    title="My Profile" 
+                <Card
+                    title="My Profile"
                     description="Track your progress and achievements."
                     icon={<UserCircleIcon />}
                     to="/profile"
                     color="border-t-yellow-500"
                 />
-                 <Card 
-                    title="Practice Zone" 
+                <Card
+                    title="Practice Zone"
                     description="Quick exercises and daily challenges."
                     icon={<ChatIcon />}
                     to="/chat"
                     color="border-t-red-500"
                 />
-                 <Card
+                <Card
                     title="GPT Voice Chat"
                     description="Real-time voice conversation with OpenAI GPT agent."
                     icon={<MicrophoneIcon />}
                     to="/voice-chat"
                     color="border-t-blue-500"
                 />
-                 <Card
+                <Card
                     title="LiveKit Voice Agent"
                     description="AI voice chat powered by Google Gemini native audio."
                     icon={<MicrophoneIcon />}

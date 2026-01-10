@@ -7,12 +7,13 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "npm run proxy & npm run agent & vite",
+    "dev": "vite",
+    "dev:full": "npm run proxy & npm run agent & vite",
     "build": "vite build",
     "preview": "vite preview",
     "start": "node server/agent.js start",
     "proxy": "node proxy.js",
-    "agent": "node server/agent.js",
+    "agent": "node server/agent.js start",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

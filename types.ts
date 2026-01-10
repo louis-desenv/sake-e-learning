@@ -21,3 +21,20 @@ export interface UserProfile {
   interests: string;
   nativeLanguage: Language;
 }
+
+// --- API Interfaces (Backend DTOs) ---
+
+export interface ApiUserDto {
+  id: number;
+  name: string;
+  email: string;
+  isActive: boolean;
+}
+
+export interface AuthResponse {
+  success: boolean;
+  message: string;
+  token?: string;
+  user?: ApiUserDto;
+}
+
