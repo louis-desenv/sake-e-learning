@@ -1,24 +1,6 @@
 import "dotenv/config";
-import express from "express";
-
-// HTTP server for Render/DO health checks
-// COMMENTED OUT: LiveKit CLI's runApp() starts its own health server on port 3000 by default
-// causing EADDRINUSE if we try to start another one here.
-// HTTP server for Render/DO health checks
-const app = express();
-const HEALTH_PORT = process.env.PORT || 3000;
-
-app.get('/', (req, res) => {
-  res.json({ status: 'LiveKit Agent Running', timestamp: new Date().toISOString() });
-});
-
-app.get('/health', (req, res) => {
-  res.json({ status: 'healthy' });
-});
-
-app.listen(HEALTH_PORT, '0.0.0.0', () => {
-  console.log(`Health server running on port ${HEALTH_PORT}`);
-});
+// HTTP server for Render/DO health checks moved to server/health.js
+// This file is now purely the LiveKit Agent Worker
 
 import { fileURLToPath } from "node:url";
 
