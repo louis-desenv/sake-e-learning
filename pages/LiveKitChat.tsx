@@ -130,17 +130,30 @@ const LiveKitChat: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Voice Visualizer */}
-                    <div className="h-32 relative rounded-lg bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center">
+                    {/* Voice Visualizer / Avatar Video */}
+                    <div className="h-64 relative rounded-lg bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center overflow-hidden">
+                        {/* Always render the video element so the hook can attach to it. 
+                            We control visibility or styling, but the DOM node must exist. */}
+                        <video 
+                            id="bey-avatar-video" 
+                            className="absolute inset-0 w-full h-full object-cover" 
+                            autoPlay 
+                            playsInline 
+                            muted // Muted because audio comes from a separate track
+                        />
+
                         {!isConnected ? (
-                            <div className="text-center">
+                            <div className="text-center z-10">
                                 <div className="text-4xl mb-2">🎤</div>
                                 <p className="text-sm text-gray-600">
                                     Click below to connect as <strong>{user.name}</strong>
                                 </p>
                             </div>
                         ) : (
-                            <div className="flex items-center space-x-2">
+                            // Only show visualizer fallback if we want, or overlay it. 
+                            // For now, let's keep the visualizer as a fallback or overlay if video isn't opaque yet.
+                            // But usually, once video plays, it covers this.
+                            <div className="flex items-center space-x-2 z-10 opacity-50 pointer-events-none">
                                 {[...Array(5)].map((_, i) => (
                                     <div
                                         key={i}
@@ -154,7 +167,7 @@ const LiveKitChat: React.FC = () => {
                                         }}
                                     />
                                 ))}
-                                <span className="ml-4 text-gray-600 font-medium">
+                                <span className="ml-4 text-gray-600 font-medium bg-white/50 px-2 py-1 rounded">
                                     {isAgentSpeaking ? 'Agent is speaking...' : 'Listening to you...'}
                                 </span>
                             </div>
