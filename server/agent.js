@@ -226,5 +226,8 @@ cli.runApp(
   new WorkerOptions({
     agent: fileURLToPath(import.meta.url),
     port: agentPort,
+    workerType: "process", // Explicitly set worker type
+    production: true,      // Explicitly enable production mode
+    execTimeout: 10,       // Increase execution timeout (seconds)
   })
 );
