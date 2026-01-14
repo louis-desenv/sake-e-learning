@@ -15,19 +15,6 @@ module.exports = {
         AGENT_PORT: 8081
       },
       args: "start"
-    },
-    {
-      name: "sakae-proxy",
-      script: "proxy.js",
-      interpreter: "node",
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: "500M",
-      env: {
-        NODE_ENV: "production",
-        PORT: 8082
-      }
     }
   ]
 };
