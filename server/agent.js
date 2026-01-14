@@ -242,5 +242,9 @@ cli.runApp(
     production: true,      // Explicitly enable production mode
     execTimeout: 10,       // Increase execution timeout (seconds)
     loadThreshold: 0.99,   // CRITICAL: Allow high CPU usage on 1vCPU VM
+    // CRITICAL: Force connection to LiveKit Cloud to avoid region mismatch
+    // Without this, the worker registers in the nearest region (US East B from NYC3)
+    // but the front-end creates rooms in Brazil region, causing job dispatch failures
+    wsURL: liveKitUrl || process.env.LIVEKIT_URL,
   })
 );
