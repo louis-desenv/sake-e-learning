@@ -3,6 +3,7 @@ import { useLiveKitRoom } from '../hooks/useLiveKitRoom';
 import { generateLiveKitToken, LIVEKIT_CONFIG } from '../services/livekitTokenService';
 import { ConnectionState } from 'livekit-client';
 import { useUser } from '../context/UserContext';
+// Redeploy trigger: Sync to 4552da5
 
 const LiveKitChat: React.FC = () => {
     const { user } = useUser();
