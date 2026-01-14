@@ -20,11 +20,25 @@ export const useLiveKitRoom = () => {
     ConnectionState.Disconnected,
   );
   const [error, setError] = useState<string | null>(null);
-  const [agentTranscript, setAgentTranscript] = useState('');
-  const [userTranscript, setUserTranscript] = useState('');
+  // 🔴 NEW: Segment-based state to prevent duplication
+  // Using 'any' for the Map value type to avoid complex TS import issues causing 'unknown' errors
+  const [agentSegments, setAgentSegments] = useState<Map<string, any>>(new Map());
+  const [userSegments, setUserSegments] = useState<Map<string, any>>(new Map());
+
   const [isAgentSpeaking, setIsAgentSpeaking] = useState(false);
-  const [participants, setParticipants] = useState<Participant[]>([]);
-  
+  const [participants, setParticipants] = useState<import('livekit-client').Participant[]>([]);
+
+  // Derived transcripts for UI compatibility
+  const agentTranscript = Array.from(agentSegments.values())
+    .sort((a, b) => (a.firstReceivedTime || 0) - (b.firstReceivedTime || 0))
+    .map((s: any) => s.text)
+    .join(' ');
+
+  const userTranscript = Array.from(userSegments.values())
+    .sort((a, b) => (a.firstReceivedTime || 0) - (b.firstReceivedTime || 0))
+    .map((s: any) => s.text)
+    .join(' ');
+
   // 🔴 NEW: Add a video key to force re-render
   const [videoElementKey, setVideoElementKey] = useState(0);
 
@@ -221,19 +235,46 @@ export const useLiveKitRoom = () => {
   const handleDataReceived = useCallback((payload: Uint8Array, participant?: RemoteParticipant) => {
     try {
       const message = JSON.parse(new TextDecoder().decode(payload));
-      console.log('Data received:', message);
+      // console.log('Data received:', message); // Reduced noise
 
       if (message.type === 'transcription') {
+        // Fallback for legacy data messages if used
         if (message.source === 'agent') {
-          setAgentTranscript((prev) => prev + message.text);
-        } else if (message.source === 'user') {
-          setUserTranscript(message.text);
+           // For legacy string-based, we can't easily dedup without ID, 
+           // but modern agents use handleTranscriptionReceived.
+           // Leaving this as-is or ignoring to prevent conflict.
         }
       }
     } catch {
-      console.log('Non-JSON data received');
+      // console.log('Non-JSON data received');
     }
   }, []);
+
+  // 🔴 NEW: Standard Transcription Handler with Dedup
+  const handleTranscriptionReceived = useCallback(
+    (segments: import('livekit-client').TranscriptionSegment[], participant?: Participant) => {
+      const isAgent = participant !== roomRef.current?.localParticipant;
+
+      if (isAgent) {
+        setAgentSegments(prev => {
+          const next = new Map(prev);
+          for (const s of segments) {
+            next.set(s.id, s);
+          }
+          return next;
+        });
+      } else {
+        setUserSegments(prev => {
+          const next = new Map(prev);
+          for (const s of segments) {
+            next.set(s.id, s);
+          }
+          return next;
+        });
+      }
+    },
+    []
+  );
 
   const disconnect = useCallback(async () => {
     console.log('Starting disconnect...');
@@ -274,8 +315,8 @@ export const useLiveKitRoom = () => {
     // Reset state
     setIsConnected(false);
     setConnectionState(ConnectionState.Disconnected);
-    setAgentTranscript('');
-    setUserTranscript('');
+    setAgentSegments(new Map());
+    setUserSegments(new Map());
     setParticipants([]);
     setIsAgentSpeaking(false);
     
@@ -293,8 +334,8 @@ export const useLiveKitRoom = () => {
       }
 
       setError(null);
-      setAgentTranscript('');
-      setUserTranscript('');
+      setAgentSegments(new Map());
+      setUserSegments(new Map());
 
       try {
         const roomOptions: RoomOptions = {
@@ -320,6 +361,7 @@ export const useLiveKitRoom = () => {
         room.on(RoomEvent.TrackUnsubscribed, handleTrackUnsubscribed);
         room.on(RoomEvent.ActiveSpeakersChanged, handleActiveSpeakersChanged);
         room.on(RoomEvent.DataReceived, handleDataReceived);
+        room.on(RoomEvent.TranscriptionReceived, handleTranscriptionReceived);
         room.on(RoomEvent.ParticipantConnected, updateParticipants);
         room.on(RoomEvent.ParticipantDisconnected, updateParticipants);
 
@@ -352,6 +394,7 @@ export const useLiveKitRoom = () => {
       handleTrackUnsubscribed,
       handleActiveSpeakersChanged,
       handleDataReceived,
+      handleTranscriptionReceived,
       updateParticipants,
       disconnect,
     ],

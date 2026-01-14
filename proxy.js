@@ -1,5 +1,6 @@
-import { WebSocketServer } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 import { createServer } from 'http';
+import "dotenv/config"; // Ensure env vars are loaded
 
 const server = createServer();
 const wss = new WebSocketServer({ server });
@@ -7,9 +8,16 @@ const wss = new WebSocketServer({ server });
 wss.on('connection', (clientWs) => {
   console.log('Client connected to proxy');
 
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    console.error("❌ MISSING OPENAI_API_KEY in environment variables");
+    clientWs.close(1008, "Missing API Key");
+    return;
+  }
+
   const openaiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-10-01', {
     headers: {
-      'Authorization': 'Bearer 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',
+      'Authorization': `Bearer ${apiKey}`,
       'OpenAI-Beta': 'realtime=v1',
     },
   });

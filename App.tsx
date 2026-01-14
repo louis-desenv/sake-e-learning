@@ -3,7 +3,7 @@ import React from 'react';
 import { HashRouter, Routes, Route, Navigate, useLocation, Link, Outlet } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
 import useLocalStorage from './hooks/useLocalStorage';
-import type { UserProfile } from './types';
+import { type UserProfile, EnglishLevel, LearningGoal } from './types';
 
 import Onboarding from './components/Onboarding';
 import Login from './pages/Login';
@@ -57,8 +57,10 @@ const App: React.FC = () => {
 
   const logout = () => setUserProfile(null);
 
+  const activeUser = userProfile;
+
   return (
-    <UserProvider value={{ user: userProfile, logout }}>
+    <UserProvider value={{ user: activeUser, logout }}>
       <HashRouter>
         <div className="min-h-screen bg-blue-50/50 font-sans">
           <Routes>
@@ -66,7 +68,7 @@ const App: React.FC = () => {
             <Route path="/google-callback" element={<GoogleCallback onLoginComplete={setUserProfile} />} />
 
             {/* Main App Logic */}
-            {!userProfile ? (
+            {!activeUser ? (
               <Route path="*" element={<Login onLoginComplete={setUserProfile} />} />
             ) : (
               <>
@@ -84,7 +86,7 @@ const App: React.FC = () => {
           </Routes>
 
           {/* Bottom Nav only visible when logged in */}
-          {userProfile && <BottomNav />}
+          {activeUser && <BottomNav />}
         </div>
       </HashRouter>
     </UserProvider>

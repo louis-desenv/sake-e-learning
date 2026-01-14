@@ -35,7 +35,7 @@ const LiveKitChat: React.FC = () => {
             const token = await generateLiveKitToken({
                 apiKey: LIVEKIT_CONFIG.apiKey,
                 apiSecret: LIVEKIT_CONFIG.apiSecret,
-                identity: user.name || 'User',
+                identity: `guest-${Date.now()}`, // Using simplified guest identity as requested
                 roomName: sessionRoomName,
             });
 
