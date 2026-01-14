@@ -1,0 +1,13 @@
+@echo off
+echo Starting Sakae E-Learning Services...
+
+echo Starting Proxy (Port 8082)...
+start "Sakae Proxy" cmd /k "npm run proxy"
+
+echo Starting Agent (Port 8081)...
+start "Sakae Agent" cmd /k "npm run agent"
+
+echo Starting Frontend (Port 3000)...
+start "Sakae Frontend" cmd /k "npm run dev"
+
+echo All services started in separate windows.
