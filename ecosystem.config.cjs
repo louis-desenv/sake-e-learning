@@ -11,8 +11,8 @@ module.exports = {
       env: {
         NODE_ENV: "production",
         // Ensure these match your .env or are set in the VM
-        PORT: 3000,
-        AGENT_PORT: 8081
+        PORT: 3001,
+        AGENT_PORT: 8082
       },
       args: "start"
     }
