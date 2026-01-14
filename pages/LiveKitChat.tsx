@@ -17,6 +17,7 @@ const LiveKitChat: React.FC = () => {
         connect,
         disconnect,
         toggleMicrophone,
+        room,
     } = useLiveKitRoom();
 
     const [isGeneratingToken, setIsGeneratingToken] = useState(false);
@@ -28,16 +29,19 @@ const LiveKitChat: React.FC = () => {
 
         try {
             // Generate token with user's name as identity
+            // Capture a unique room name for this session
+            const sessionRoomName = LIVEKIT_CONFIG.roomName;
+
             const token = await generateLiveKitToken({
                 apiKey: LIVEKIT_CONFIG.apiKey,
                 apiSecret: LIVEKIT_CONFIG.apiSecret,
                 identity: user.name || 'User',
-                roomName: LIVEKIT_CONFIG.roomName,
+                roomName: sessionRoomName,
             });
 
             console.log('Generated LiveKit token for:', user.name);
             console.log('Connecting to:', LIVEKIT_CONFIG.serverUrl);
-            console.log('Room:', LIVEKIT_CONFIG.roomName);
+            console.log('Room:', sessionRoomName);
 
             // Connect to the room
             await connect(LIVEKIT_CONFIG.serverUrl, token);
@@ -114,7 +118,7 @@ const LiveKitChat: React.FC = () => {
                                     <p className="text-sm text-gray-600">
                                         {isConnected
                                             ? `${participants.length} participant(s) in room`
-                                            : `Room: ${LIVEKIT_CONFIG.roomName}`
+                                            : `Room: ${room?.name || 'New Session'}`
                                         }
                                     </p>
                                 </div>
