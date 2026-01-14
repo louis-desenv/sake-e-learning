@@ -241,5 +241,6 @@ cli.runApp(
     workerType: "process", // Explicitly set worker type
     production: true,      // Explicitly enable production mode
     execTimeout: 10,       // Increase execution timeout (seconds)
+    loadThreshold: 0.99,   // CRITICAL: Allow high CPU usage on 1vCPU VM
   })
 );
