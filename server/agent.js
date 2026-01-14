@@ -33,13 +33,24 @@ export default defineAgent({
   identity: "CA_PRhwL82rAFvV",
 
   entry: async (ctx) => {
-    console.log("Agent dispatched to room:", ctx.room.name);
+    console.log("=================================================");
+    console.log("🚀 AGENT ENTRY STARTED");
+    console.log("Context Room Name:", ctx.room.name);
+    console.log("Context Agent Identity:", ctx.agent.identity);
+    console.log("Checking Environment Variables:");
+    console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "Set (starts with " + process.env.OPENAI_API_KEY.substring(0, 5) + "...)" : "MISSING");
+    console.log("BEY_API_KEY:", process.env.BEY_API_KEY ? "Set" : "MISSING");
+    console.log("BEY_AVATAR_ID:", process.env.BEY_AVATAR_ID ? "Set" : "MISSING");
+    console.log("LIVEKIT_URL:", process.env.LIVEKIT_URL ? "Set" : "MISSING");
+    console.log("=================================================");
 
     try {
+      console.log("⏳ Connecting to LiveKit room...");
       await ctx.connect();
-      console.log("Agent connected to room successfully");
+      console.log("✅ Agent connected to room successfully");
     } catch (error) {
-      console.error("Failed to connect agent to room:", error);
+      console.error("❌ FATAL: Failed to connect agent to room:", error);
+      console.error("Stack:", error.stack);
       return;
     }
 
@@ -94,26 +105,28 @@ export default defineAgent({
       console.log("Voice agent started successfully");
 
       // Start Bey avatar session
-      console.log("Starting Bey avatar session...");
+      console.log("🤖 PREPARING BEY AVATAR SESSION...");
       try {
         if (beyAvatarId && beyApiKey) {
+          console.log(`Creating AvatarSession with ID: ${beyAvatarId}`);
           beyAvatarSession = new bey.AvatarSession({
             beyAvatarId,
             apiKey: beyApiKey,
           });
-          console.log("Bey avatar session created");
+          console.log("✅ Bey avatar session INSTANCE created");
 
-          console.log("Starting Bey avatar...");
+          console.log("🚀 Starting Bey avatar (calling .start())...");
           await beyAvatarSession.start(voiceAgentSession, ctx.room);
-          console.log("Bey avatar started successfully");
+          console.log("✅ Bey avatar .start() COMPLETED successfully");
         } else {
-          console.log(
-            "Skipping Bey avatar: BEY_AVATAR_ID or BEY_API_KEY missing"
+          console.warn(
+            "⚠️ Skipping Bey avatar: BEY_AVATAR_ID or BEY_API_KEY missing"
           );
         }
       } catch (error) {
-        console.error("Error starting Bey avatar:", error);
-        console.log("Continuing with voice agent only (avatar failed)");
+        console.error("❌ ERROR STARTING BEY AVATAR:", error);
+        console.error("Stack:", error.stack);
+        console.log("⚠️ Continuing with voice agent only (avatar failed)");
       }
 
       let roomTimeout;
