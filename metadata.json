@@ -1,0 +1,7 @@
+{
+  "name": "SAke E-Learning",
+  "description": "A modern, professional English AI tutor web application powered by Google Gemini AI, offering personalized lessons and real-time voice conversations.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
