@@ -1,27 +1,30 @@
-# Use Node.js 20 on Debian Slim (better for native modules like LiveKit than Alpine)
-FROM node:20-slim
+FROM node:20-slim AS build
 
-# Set working directory
 WORKDIR /app
 
-# Install necessary system dependencies for native modules (if any)
-# LiveKit usually needs some basics if prebuilds fail, but slim + glibc covers most cases.
-# We update apt-get just in case we need to add libs later.
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY tsconfig.server.json ./
+COPY server ./server
+RUN npm run build:server
+
+FROM node:20-slim AS runtime
+
+WORKDIR /app
+ENV NODE_ENV=production
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy package files first
 COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Install dependencies
-RUN npm ci
+COPY --from=build /app/dist/server ./dist/server
 
-# Copy the rest of the application code
-COPY . .
+EXPOSE 3001 8082
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:' + (process.env.PORT || 3001) + '/health').then(r => { if (!r.ok) process.exit(1) }).catch(() => process.exit(1))"
 
-# Expose the port
-EXPOSE 3000
-
-# Command to run the agent
 CMD ["npm", "run", "start"]

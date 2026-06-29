@@ -1,0 +1,655 @@
+{
+  "onboarding": {
+    "stepLearningLangTitle": "Welche Sprache möchten Sie lernen?",
+    "stepLearningLangDesc": "Derzeit bieten wir nur Englisch an. Weitere Sprachen folgen bald!",
+    "step1Title": "Was ist Ihre Muttersprache?",
+    "step1Desc": "Dies ermöglicht maßgeschneiderte zweisprachige Unterstützung.",
+    "stepInterfaceLangTitle": "Schnittstellensprache",
+    "nativeOption": "Meine Muttersprache ({{lang}})",
+    "learningOption": "Die Sprache, die ich lerne (Englisch)",
+    "step2Title": "Wie gut ist Ihr Englisch?",
+    "stepInterfaceLangDesc": "Würden Sie die App-Oberfläche lieber in Ihrer Muttersprache oder in der Sprache haben, die Sie lernen?",
+    "step2Desc": "Dies hilft uns, die Lektionen für Sie individuell anzupassen.",
+    "step3Title": "Was sind Ihre Lernziele?",
+    "step3Desc": "Wählen Sie alle zutreffenden Optionen aus.",
+    "placeholderName": "Ihr Name",
+    "step4Desc": "Bestätigen Sie Ihren Namen oder bearbeiten Sie ihn bei Bedarf:",
+    "step4Title": "Willkommen bei Flow Speak!",
+    "btnNext": "Weiter",
+    "btnBack": "Zurück",
+    "selectLanguage": "Wählen Sie eine Sprache aus",
+    "levels": {
+      "Beginner": "Anfänger",
+      "Intermediate": "Fortgeschritten",
+      "Advanced": "Erweitert"
+    },
+    "btnFinish": "Fertig",
+    "btnSaving": "Wird gespeichert...",
+    "english": "Englisch",
+    "goals": {
+      "Travel Communication": "Reisekommunikation",
+      "Career Development": "Karriereentwicklung",
+      "Daily Conversation": "Tägliche Unterhaltung",
+      "Exam Preparation": "Prüfungsvorbereitung"
+    },
+    "languages": {
+      "Spanish": "Spanisch",
+      "English": "Englisch",
+      "French": "Französisch",
+      "German": "Deutsch",
+      "Japanese": "Japanisch",
+      "Korean": "Koreanisch",
+      "Italian": "Italienisch",
+      "Portuguese": "Portugiesisch",
+      "Chinese": "Chinesisch",
+      "Russian": "Russisch",
+      "Arabic": "Arabisch"
+    },
+    "autoDetected": "Detected from your device — you can change it above.",
+    "stepDailyGoalTitle": "What's your daily practice goal?",
+    "stepDailyGoalDesc": "Choose how much time you want to dedicate each day. You can always change this later.",
+    "dailyGoals": {
+      "Spark": "Spark",
+      "SparkMinutes": "3 min / day",
+      "SparkDesc": "Quick daily habit. Perfect for getting started.",
+      "Flow": "Flow",
+      "FlowMinutes": "10 min / day",
+      "FlowDesc": "Steady rhythm. Build consistency over time.",
+      "Boost": "Boost",
+      "BoostMinutes": "20 min / day",
+      "BoostDesc": "Serious commitment. Accelerate your progress.",
+      "Surge": "Surge",
+      "SurgeMinutes": "30 min / day",
+      "SurgeDesc": "Full immersion. Reach fluency fast."
+    },
+    "errorSaving": "An error occurred while saving your profile. Please try again.",
+    "fillAllFields": "Please fill in all fields.",
+    "preparingInterface": "Preparing interface in your language..."
+  },
+  "chat": {
+    "tutorThinking": "Der Tutor denkt…",
+    "analyzingProgress": "Ihren Fortschritt wird analysiert …",
+    "listeningSilence": "Zuhören... (endet nach 3 Sekunden Stille)",
+    "enterMessageOrVoice": "Geben Sie Ihre Nachricht ein oder verwenden Sie die Sprachfunktion …",
+    "focusNextMessages": "FOKUS FÜR DIE NÄCHSTEN NACHRICHTEN",
+    "hideExamples": "Beispiele ausblenden",
+    "seeSpecificExamples": "Siehe spezifische Beispiele",
+    "yourAiTutor": "Ihr KI-Tutor",
+    "tutorInsight": "Tutor-Einblick",
+    "justSpeak": "Einfach sprechen",
+    "tapBelow": "Tippen Sie unten und beginnen Sie zu sprechen …",
+    "tapToStart": "Tippen Sie, um die Unterhaltung zu beginnen",
+    "listening": "Zuhören",
+    "speaking": "Sprechen",
+    "processing": "Wird verarbeitet",
+    "you": "Du",
+    "unmute": "Stummschaltung aufheben",
+    "mute": "Stumm",
+    "doingGreat": "Großartig läuft es",
+    "quickTip": "Schneller Tipp",
+    "listeningSubtitle": "Zuhören...",
+    "analyzingPerformance": "Leistung wird analysiert …",
+    "viewSpecificMistakes": "Spezifische Fehler anzeigen",
+    "gotItThanks": "Verstanden, danke!",
+    "historyWillAppear": "Die Geschichte wird hier angezeigt …",
+    "quickInsightTts": "Schnelle Einsicht! {{positive}}. Vorschlag: {{toImprove}}",
+    "historyTitle": "Unterhaltungsverlauf",
+    "messages": "Nachrichten",
+    "noConversations": "Noch keine Unterhaltungen.",
+    "downloadComingSoon": "Download-Funktion kommt bald.",
+    "downloadConversation": "Unterhaltung herunterladen",
+    "loadingMessages": "Nachrichten werden geladen...",
+    "iaTutor": "KI-Nachhilfelehrer",
+    "currentSession": "Current Session",
+    "startPracticing": "Start practicing!",
+    "tutorAvatar": "Tutor Avatar",
+    "msgs": "msgs",
+    "downloadDate": "Date: {{date}}",
+    "downloadDuration": "Duration: {{duration}}",
+    "noConversationsYet": "No conversations yet.",
+    "loadingConversations": "Loading messages...",
+    "youHistory": "You",
+    "aiTutorHistory": "AI Tutor",
+    "exitFullscreen": "Exit fullscreen",
+    "fullscreen": "Fullscreen",
+    "tutorAvatarMale": "Louis",
+    "tutorAvatarFemale": "Sarah",
+    "tutorLouis": "Louis",
+    "tutorSarah": "Sarah",
+    "audioSettingsTitle": "Audio Settings",
+    "stopSpeaking": "Stop",
+    "listenAgain": "Listen again ({{service}})",
+    "listenInsight": "Listen to insight ({{service}})",
+    "listen": "Listen",
+    "noVoicesAvailable": "No voices available for {{service}}",
+    "welcomeFallback": "Hi there! 👋 I'm your AI tutor. How can I help you practice your English today?",
+    "welcomeFallbackShort": "Hi there! 👋",
+    "quickInsight": "Quick insight on your progress!",
+    "tip": "Tip",
+    "whatsGoingWell": "What's Going Well",
+    "audioSettings": "Audio Settings",
+    "enableSound": "Enable Sound",
+    "voiceService": "Voice Service:",
+    "yourTutor": "Your Tutor:",
+    "male": "Male",
+    "female": "Female",
+    "loadingVoices": "Loading voices...",
+    "browserVoices": "Browser voices (free)",
+    "premiumVoices": "Premium voices (high quality)",
+    "stop": "Stop",
+    "listenToInsight": "Listen to insight",
+    "tapToStopRecording": "Tap to stop recording",
+    "tapToStartVoice": "Tap to start voice input",
+    "noEnglishVoices": "No English voices available",
+    "selectValidVoice": "Please select a valid voice",
+    "speechPlaybackFailed": "Speech playback failed",
+    "failedToLoadVoices": "Failed to load voices",
+    "sorryError": "Sorry, there was an error. Please try again.",
+    "apiKeyNotFound": "Voice service is not configured.",
+    "downloadConversationTitle": "Conversation - {{title}}",
+    "conversationWith": "Conversation with AI Tutor - {{title}}",
+    "dateLabel": "Date: {{date}}",
+    "youLabel": "VOCÊ",
+    "aiLabel": "IA (TUTOR)"
+  },
+  "voiceChat": {
+    "preparingSession": "Ihre Sitzung wird vorbereitet",
+    "justAvatar": "Nur Avatar",
+    "loadingAvatar": "Avatar wird geladen, bitte warten …",
+    "tapToStart": "Tippen Sie, um die Unterhaltung zu beginnen",
+    "analyzing": "Wird analysiert …",
+    "gotIt": "Verstanden, danke!",
+    "agent": "Agent",
+    "cameraOff": "Kamera aus",
+    "you": "Du",
+    "justSpeak": "Einfach sprechen",
+    "tapBelow": "Tippen Sie unten und beginnen Sie zu sprechen …",
+    "mic": "Mikrofon",
+    "inCall": "Im Anruf",
+    "idle": "Im Leerlauf",
+    "endCall": "Anruf beenden",
+    "connectedParticipants": "Verbunden — {{count}} Teilnehmer",
+    "audioOnly": "Nur Audio",
+    "notConnected": "Nicht verbunden",
+    "livekitAudioAgent": "LiveKit-Audio-Agent",
+    "participant": "Teilnehmer",
+    "progress": "Ihr Fortschritt",
+    "totalPoints": "Gesamtpunktzahl",
+    "level": "Stufe",
+    "conversationsToday": "Gespräche heute",
+    "settings": "Einstellungen",
+    "enableSound": "Ton aktivieren",
+    "moreSettings": "Hinweis: Weitere Einstellungen folgen bald!",
+    "practiceTime": "Übungszeit: 45 Min.",
+    "exitFullscreen": "Vollbild beenden",
+    "fullscreen": "Vollbild",
+    "cameraDenied": "Camera permission denied"
+  },
+  "liveKitPage": {
+    "title": "Sprachassistent",
+    "generatingToken": "Token wird generiert...",
+    "subtitle": "Mit der Sprachsitzung verbunden",
+    "connected": "Verbunden",
+    "connecting": "Verbinde...",
+    "reconnecting": "Verbinde neu...",
+    "disconnected": "Getrennt",
+    "unknown": "Unbekannt",
+    "startVoiceSession": "Sprachsession starten",
+    "agentSpeaking": "Agent spricht…",
+    "listening": "Zuhören...",
+    "participantsCount": "{{count}} Teilnehmer(in) im Raum",
+    "readyToConnect": "Bereit zu verbinden",
+    "roomName": "Raum: {{name}}",
+    "newSession": "Neue Sitzung",
+    "toggleMic": "Mikrofon umschalten",
+    "agentIsSpeaking": "Agent spricht…",
+    "clickToConnect": "Klicken Sie unten, um sich als anzumelden",
+    "listeningToYou": "Dir zuzuhören …",
+    "youLabel": "Du",
+    "agentLabel": "Agent",
+    "disconnect": "Trennen",
+    "roomParticipants": "Raumteilnehmer ({{count}})",
+    "footerNote": "Verbindet sich mit Ihrem Sprachraum „{{name}}“.",
+    "connectionDetails": "Verbindungsdetails",
+    "youIndicator": "(du)"
+  },
+  "profilePage": {
+    "studentLabel": "Student",
+    "logout": "Abmelden",
+    "hours": "Stunden",
+    "weeklyPerformance": "Wöchentliche Leistung",
+    "learningGoals": "Lernziele",
+    "nativeLanguage": "Muttersprache",
+    "hideHistory": "Verlauf ausblenden",
+    "messages": "Nachrichten",
+    "showHistory": "Verlauf anzeigen",
+    "noConversations": "Keine Unterhaltungen gefunden. Beginnen Sie mit dem Üben!",
+    "you": "Du",
+    "downloadConversation": "Unterhaltung herunterladen",
+    "scenarios": {
+      "phone-screen": "Telefoninterview",
+      "job-interviews": "Vorstellungsgespräche",
+      "travel-conversations": "Reisegespräche",
+      "business-meetings": "Geschäftstreffen",
+      "vocabulary-specialist": "Vokabeln",
+      "grammar-specialist": "Essentielle Grammatik",
+      "business-specialist": "Geschäftsenglisch",
+      "travel-specialist": "Reise-Englisch",
+      "pronunciation-specialist": "Aussprache",
+      "learn": "Lernen",
+      "idioms-specialist": "Idiome und Ausdrücke",
+      "real-life": "Echtes Leben"
+    },
+    "aiTutor": "KI-Nachhilfelehrer",
+    "weekdays[1]": "Di.",
+    "weekdays[0]": "Montag",
+    "weekdays[3]": "Do.",
+    "weekdays[2]": "Mi.",
+    "weekdays[5]": "Samstag",
+    "weekdays[4]": "Fr.",
+    "weekdays[6]": "Sonne",
+    "date": "Date",
+    "weekdays": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ]
+  },
+  "dashboard": {
+    "goodMorning": "Guten Morgen",
+    "goodAfternoon": "Guten Nachmittag",
+    "goodEvening": "Guten Abend",
+    "planActive": "Ihr Premium-Abo ist jetzt aktiv.",
+    "readyToImprove": "Bereit, Ihr Englisch noch heute zu verbessern?",
+    "paymentConfirmed": "Zahlung bestätigt!",
+    "resetProgressConfirm": "Möchten Sie Ihren Fortschritt auf Level 1 zurücksetzen?",
+    "resetButton": "Zurücksetzen",
+    "featuredTitle": "Mit einem ultrarealistischen Avatar sprechen",
+    "featuredBtn": "Jetzt sprechen",
+    "cards": {
+      "plansTitle": "Pläne",
+      "voiceTitle": "Stimme",
+      "realLifeTitle": "Echtes Leben",
+      "plansDesc": "Aktualisieren und weitere Funktionen freischalten.",
+      "realLifeDesc": "Schnelle Übungen und tägliche Herausforderungen.",
+      "learnTitle": "Lernen",
+      "profileTitle": "Profil",
+      "voiceDesc": "Echtzeit-Sprachtraining mit deinem Tutor.",
+      "learnDesc": "Strukturierte Lektionen zu Grammatik, Vokabular und mehr.",
+      "profileDesc": "Verfolgen Sie Ihren Fortschritt und Ihre Erfolge.",
+      "libraryTitle": "KI-Bibliothek",
+      "libraryDesc": "Erkunden Sie Videos und Lernressourcen."
+    },
+    "featuredDesc": "Üben Sie Ihr Sprechen und Ihr Hörverstehen, indem Sie in Echtzeit mit Ihrem KI-Tutor sprechen.",
+    "gptVoiceChat": "GPT Voice Chat",
+    "avatarTitle": "Talk to a Ultra-realistic Avatar",
+    "avatarDesc": "Practice your skills with a ultra-realistic Avatar."
+  },
+  "navigation": {
+    "home": "Startseite",
+    "avatar": "Avatar",
+    "realLife": "Echtes Leben",
+    "voiceChat": "Sprach-Chat",
+    "library": "Bibliothek",
+    "profile": "Profil",
+    "learn": "Lernen",
+    "backToHome": "Back to Home"
+  },
+  "gamification": {
+    "level": "Stufe",
+    "maxLevel": "Maximale Stufe erreicht – fließend!",
+    "nextLevelIn": "in {{xp}} Erfahrungspunkten",
+    "completed": "{{progress}} % abgeschlossen",
+    "levelRequired": "Erfordert Stufe {{level}}",
+    "xpNeeded": "Benötige {{xp}} XP",
+    "achievementsTitle": "Errungenschaften",
+    "showLess": "Weniger anzeigen",
+    "unlockedStatus": "{{earned}} von {{total}} freigeschaltet",
+    "completedStatus": "{{percent}} % abgeschlossen",
+    "badges": {
+      "level-2": {
+        "title": "Explorer",
+        "description": "Stufe 2 erreicht",
+        "hint": "Erreiche Level 2"
+      },
+      "level-3": {
+        "title": "Kommunikator",
+        "hint": "Erreiche Stufe 3",
+        "description": "Stufe 3 erreicht"
+      },
+      "level-4": {
+        "title": "Leistungsträger",
+        "description": "Stufe 4 erreicht",
+        "hint": "Erreiche Level 4"
+      },
+      "level-5": {
+        "description": "Maximales Level erreicht!",
+        "title": "fließend",
+        "hint": "Erreiche Level 5 – fließend"
+      },
+      "xp-first": {
+        "title": "Erstes Training",
+        "description": "Hast deine erste Erfahrungspunkte erhalten",
+        "hint": "Schließen Sie Ihre erste Chat-Sitzung ab"
+      },
+      "xp-100": {
+        "title": "Jahrhundertfeier",
+        "description": "100 XP gesammelt",
+        "hint": "Sammeln Sie insgesamt 100 XP."
+      },
+      "xp-500": {
+        "title": "Engagiert",
+        "description": "500 XP gesammelt",
+        "hint": "Sammeln Sie insgesamt 500 Erfahrungspunkte."
+      },
+      "xp-1000": {
+        "title": "Übungsmeister",
+        "description": "1.000 XP gesammelt",
+        "hint": "Sammeln Sie insgesamt 1.000 Erfahrungspunkte."
+      },
+      "voice-unlocked": {
+        "title": "Erste Stimme",
+        "description": "Freigeschalteter Sprachchat",
+        "hint": "Erreiche Level 2, um die Sprachchat-Funktion freizuschalten."
+      },
+      "voice-unlimited": {
+        "title": "Unbegrenzt",
+        "description": "Unbegrenzter Sprachchat freigeschaltet",
+        "hint": "Erreiche Level 5 für unbegrenzten Sprachchat"
+      },
+      "time-1h": {
+        "title": "1 Stunde Übung",
+        "description": "Insgesamt 1 Stunde geübt",
+        "hint": "Üben Sie insgesamt 1 Stunde lang."
+      }
+    },
+    "showAll": "Alle anzeigen ({{total}})",
+    "levels": {
+      "1": {
+        "name": "Starter",
+        "benefit": "Access to initial text chats"
+      },
+      "2": {
+        "name": "Explorer",
+        "benefit": "5 min of Voice Chat unlocked"
+      },
+      "3": {
+        "name": "Communicator",
+        "benefit": "10 min of Voice Chat unlocked"
+      },
+      "4": {
+        "name": "Achiever",
+        "benefit": "20 min of Voice Chat unlocked"
+      },
+      "5": {
+        "name": "Fluent",
+        "benefit": "Unlimited Voice Chat unlocked!"
+      }
+    },
+    "reasons": {
+      "voiceTimeout": "Talked to the audio tutor and completed daily speaking practice.",
+      "voiceManual": "Practiced pronunciation, conversation, and vocabulary via voice commands."
+    }
+  },
+  "realLifePage": {
+    "title": "Echtzeit",
+    "adaptiveChallenge": "Adaptive Herausforderung",
+    "subtitle": "Wählen Sie einen Gesprächsweg, um mit dem Chatten zu beginnen.",
+    "pageOf": "Seite {{page}} von {{totalPages}}",
+    "deleteTitle": "Szenario löschen?",
+    "deleteConfirm": "Sind Sie sicher, dass Sie dieses benutzerdefinierte Szenario löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "delete": "Löschen",
+    "cancel": "Abbrechen",
+    "deleteScenarioTitle": "Szenario löschen",
+    "new": "Neu",
+    "deleteGenericError": "Fehler beim Löschen des Szenarios.",
+    "deleteError": "Szenario konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+  },
+  "guidedLearningPage": {
+    "title": "Geführtes Lernen",
+    "adaptiveTopic": "Adaptives Thema",
+    "pageOf": "Seite {{page}} von {{totalPages}}",
+    "subtitle": "Wählen Sie ein Thema, um Ihre Lektion zu beginnen.",
+    "deleteTitle": "Szenario löschen?",
+    "cancel": "Abbrechen",
+    "new": "Neu",
+    "delete": "Löschen",
+    "deleteConfirm": "Sind Sie sicher, dass Sie dieses benutzerdefinierte Szenario löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "deleteScenarioTitle": "Szenario löschen",
+    "deleteError": "Szenario konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.",
+    "deleteGenericError": "Fehler beim Löschen des Szenarios."
+  },
+  "scenarios": {
+    "phone-screen": {
+      "title": "Telefonbildschirm",
+      "description": "Telefongespräche üben",
+      "goal": "Vollständiges Telefoninterview-Training"
+    },
+    "job-interviews": {
+      "title": "Vorstellungsgespräche",
+      "description": "Bereiten Sie sich auf Vorstellungsgespräche vor",
+      "goal": "Beherrschen Sie Vorstellungsgesprächsfähigkeiten"
+    },
+    "travel-conversations": {
+      "title": "Reisegespräche",
+      "description": "Reisebezogene Gespräche lernen",
+      "goal": "Werden Sie fließend in Reisedialogen"
+    },
+    "business-meetings": {
+      "title": "Geschäftstreffen",
+      "description": "Nehmen Sie an Simulationen von Geschäftstreffen teil.",
+      "goal": "Überzeugen Sie in beruflichen Gesprächen"
+    },
+    "grammar-essentials": {
+      "title": "Grammatik-Grundlagen",
+      "goal": "Stellen Sie eine solide Grammatikgrundlage auf.",
+      "description": "Beherrsche die Grundlagen der englischen Grammatik"
+    },
+    "vocabulary-builder": {
+      "title": "Vokabeltrainer",
+      "goal": "Lernen Sie täglich neue Wörter.",
+      "description": "Erweitern Sie systematisch Ihren Wortschatz."
+    },
+    "pronunciation-practice": {
+      "title": "Ausspracheübung",
+      "description": "Klinge wie ein Muttersprachler.",
+      "goal": "Verbessern Sie Ihre Aussprache"
+    },
+    "business-english": {
+      "title": "Geschäftsenglisch",
+      "description": "Professionelle Kommunikationsfähigkeiten",
+      "goal": "In geschäftlichen Kontexten hervorragend sein"
+    },
+    "travel-phrases": {
+      "title": "Reisefloskeln",
+      "description": "Wichtige Reiseausdrücke",
+      "goal": "Reisen Sie mit Vertrauen"
+    },
+    "idioms-slang": {
+      "title": "Idiome & Slang",
+      "description": "Klinge wie ein Einheimischer",
+      "goal": "Meistern Sie alltägliche Ausdrücke"
+    }
+  },
+  "voice": {
+    "locked": {
+      "title": "Voice Chat Locked",
+      "desc": "Voice Chat is locked. It is unlocked for continuous use from Level 2 onwards.",
+      "freeTrial": "Until then, you have a free {{limit}} trial!"
+    },
+    "xpNeeded": "{{xp}} XP to go",
+    "level2Unlocks": "Level 2 unlocks 5 min daily",
+    "startTrial": "Start Practice Trial ({{limit}})",
+    "back": "Back",
+    "trialDone": "Trial Completed",
+    "dailyLimitReached": "Daily Limit Reached",
+    "trialEnded": "Your free 1-minute trial is over.",
+    "upgradeToLevel2": "Reach Level 2 to unlock 5 minutes of voice every day!",
+    "dailyLimitUsed": "You have used all your Voice Chat time for today.",
+    "renewsTomorrow": "Your time will renew tomorrow!",
+    "level2UnlocksVoice": "Level 2 unlocks 5 min of Voice Chat",
+    "practiceTextChat": "Practice in Text Chat →"
+  },
+  "common": {
+    "loading": "Loading...",
+    "loadingAvatar": "Loading avatar...",
+    "durationFormat": "{{m}}m {{sec}}s",
+    "durationFormatSec": "{{sec}}s",
+    "durationFormat0": "0m",
+    "minAbbr": "min",
+    "secAbbr": "s"
+  },
+  "register": {
+    "title": "Create your account",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "namePlaceholder": "Enter your name",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "createAccount": "Create Account",
+    "creatingAccount": "Creating Account...",
+    "hasAccount": "Already have an account? Sign In",
+    "terms": "By continuing, you agree to our Terms of Service and Privacy Policy.",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "registrationFailed": "Registration failed. Please try again.",
+    "sakaeLogoAlt": "Sakae Logo"
+  },
+  "googleCallback": {
+    "authenticating": "Authenticating..."
+  },
+  "avatar": {
+    "locked": {
+      "title": "Ultra-realistic Avatar",
+      "descHtml": "The advanced AI Avatar is exclusive from <strong>Level 3 (Communicator)</strong> onwards.<br />Keep practicing to unlock this amazing experience.",
+      "currentLevel": "Your Current Level",
+      "xpNeeded": "{{xp}} XP remaining",
+      "required": "Requires Level 3",
+      "practiceMore": "Practice more to unlock the Avatar!",
+      "continueText": "Practice in Text Chat"
+    },
+    "loadingAvatar": "Loading avatar, please wait..."
+  },
+  "audio": {
+    "connectingToAI": "Connecting to AI",
+    "preparingSession": "Preparing your session...",
+    "tapToStart": "Tap to start conversation",
+    "agent": "Agent:",
+    "you": "You:"
+  },
+  "practice": {
+    "paused": "Paused",
+    "whatYouSaid": "What you said",
+    "feedback": "Feedback",
+    "tapToRecord": "Tap to start recording",
+    "micPermission": "Could not access microphone. Please check permissions.",
+    "greatJob": "Great job! Your pronunciation is improving..."
+  },
+  "levelUp": {
+    "congrats": "Congratulations!",
+    "leveledUp": "You leveled up",
+    "continue": "Continue",
+    "unlocked": "unlocked",
+    "newTopics": "New Topics",
+    "voiceUnlimited": "Unlimited Voice Chat",
+    "voiceMinutes": "{{time}} of Voice Chat"
+  },
+  "voiceChatPage": {
+    "title": "GPT Voice Chat",
+    "subtitle": "Real-time voice conversation with your AI tutor powered by OpenAI GPT."
+  },
+  "iaChatPage": {
+    "avatarTitle": "Talk to a Ultra-realistic Avatar",
+    "avatarDesc": "Practice your skills with a ultra-realistic Avatar.",
+    "scenarioLoadError": "Failed to load scenario",
+    "scenariosLoadError": "Failed to load scenarios",
+    "deleteError": "Could not delete the scenario. Please try again.",
+    "deleteGenericError": "Error deleting scenario."
+  },
+  "libraryPage": {
+    "title": "AI Library",
+    "subtitle": "Expand your knowledge with curated resources.",
+    "tipOfDay": "Tip of the Day",
+    "featuredVideos": "Featured Videos",
+    "loadingTip": "Loading tip...",
+    "youtubePlayer": "YouTube video player"
+  },
+  "plansPage": {
+    "title": "Available Plans",
+    "subtitle": "Choose the option that best adapts to your learning pace.",
+    "linkError": "Error generating payment link.",
+    "serverError": "Failed to communicate with payment server.",
+    "active": "Active",
+    "activeLabel": "ACTIVE",
+    "startedAt": "Started at",
+    "nextBilling": "Next billing",
+    "benefitsIncluded": "Benefits Included",
+    "allLessons": "All interactive lessons",
+    "avatarChat": "Voice chat with AI Avatar",
+    "priorityFeatures": "Priority features",
+    "accessLessons": "Access to all lessons",
+    "unlimitedChat": "Unlimited AI chat + Just Speak practice",
+    "savePercent": "SAVE {{percent}}%",
+    "annual": "Annual",
+    "perYear": "/year",
+    "monthly": "Monthly",
+    "perMonth": "/month",
+    "activeSubscription": "Active Subscription",
+    "processing": "Processing...",
+    "subscribe": "Subscribe Plan",
+    "restorePurchases": "Restore purchases",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "standard": "Standard",
+    "super": "Super"
+  },
+  "login": {
+    "accountCreated": "Account created successfully! Log in to continue.",
+    "registerFailed": "Registration failed",
+    "loginFailed": "Login failed",
+    "genericError": "An error occurred. Check your connection.",
+    "continueWithGoogle": "Continue with Google",
+    "or": "or",
+    "name": "Name",
+    "namePlaceholder": "Your full name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "processing": "Processing...",
+    "createAccount": "Create Account",
+    "signIn": "Sign In",
+    "hasAccount": "Already have an account? Sign In",
+    "noAccount": "Don't have an account? Create Account",
+    "terms": "By continuing, you agree to our Terms of Service and Privacy Policy.",
+    "learnEnglishWithAI": "Learn English with AI",
+    "sakaeLogoAlt": "Sakae Logo"
+  },
+  "session": {
+    "duration": "Duration",
+    "voiceChat": "Voice Chat",
+    "textChat": "Text Chat",
+    "trialDone": "Trial Completed!",
+    "sessionEnded": "Session Ended!",
+    "xpEarned": "XP Earned",
+    "locked": "Locked",
+    "progress": "Progress — Level {{level}}",
+    "xpToLevel": "XP to Level {{level}}",
+    "continue": "Continue",
+    "msg": {
+      "trialOnly": "The trial was just the beginning! Reach Level 2 to earn XP in voice sessions.",
+      "great": "Great work! Keep practicing to level up faster.",
+      "longer": "Longer sessions earn more XP. Try practicing for longer!"
+    }
+  },
+  "withAvatarChat": {
+    "levelLabel": "Level 3 (Communicator)"
+  }
+}

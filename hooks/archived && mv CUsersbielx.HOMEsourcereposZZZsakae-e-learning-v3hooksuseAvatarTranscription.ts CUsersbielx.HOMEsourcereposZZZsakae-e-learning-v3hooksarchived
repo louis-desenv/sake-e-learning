@@ -1,0 +1,216 @@
+/**
+ * useAudioOnlyTranscription Hook
+ *
+ * @deprecated Use useLiveKitTranscription instead. This hook is maintained
+ * for backward compatibility only and will be removed in a future version.
+ *
+ * Specialized hook for handling LiveKit transcription in audio-only mode.
+ * Implements the "last segment wins" strategy to prevent text duplication.
+ *
+ * @fileoverview This hook provides transcription functionality specifically
+ * for audio-only chat mode, using a simplified approach that always selects
+ * the most recent segment from LiveKit's transcription events.
+ *
+ * @dependencies react, livekit-client
+ *
+ * @author SAke E-Learning Team
+ * @version 3.0.0
+ */
+
+import { useState, useRef, useCallback, useEffect } from 'react';
+import {
+  Room,
+  RoomEvent,
+  Participant,
+} from 'livekit-client';
+
+// ============================================================================
+// TYPE DEFINITIONS
+// ============================================================================
+
+/**
+ * Parameters for the useAudioOnlyTranscription hook.
+ *
+ * @interface UseAudioOnlyTranscriptionParams
+ */
+interface UseAudioOnlyTranscriptionParams {
+  /** The LiveKit room instance (from useLiveKitRoom) */
+  room: Room | null;
+  /** Callback when user transcript changes */
+  onUserTranscriptChange?: (transcript: string) => void;
+  /** Callback when agent transcript changes */
+  onAgentTranscriptChange?: (transcript: string) => void;
+}
+
+/**
+ * Return type of the useAudioOnlyTranscription hook.
+ *
+ * @interface UseAudioOnlyTranscriptionReturn
+ */
+interface UseAudioOnlyTranscriptionReturn {
+  /** Current transcript from the AI agent */
+  agentTranscript: string;
+  /** Current transcript from the user */
+  userTranscript: string;
+  /** Whether the agent is currently speaking */
+  isAgentSpeaking: boolean;
+}
+
+// ============================================================================
+// HOOK DEFINITION
+// ============================================================================
+
+/**
+ * Custom hook for handling LiveKit transcription in audio-only mode.
+ *
+ * Implements the "last segment wins" strategy:
+ * - LiveKit sends transcription segments in chronological order within an event
+ * - The last segment in the array is always the most recent version
+ * - This strategy is simpler and more reliable than timestamp-based deduplication
+ *
+ * @function useAudioOnlyTranscription
+ * @param {UseAudioOnlyTranscriptionParams} params - Hook parameters
+ * @returns {UseAudioOnlyTranscriptionReturn} Transcripts and speaking state
+ *
+ * @example
+ * ```tsx
+ * const { room } = useLiveKitRoom({ avatarMode: 'audio-only' });
+ * const { agentTranscript, userTranscript } = useAudioOnlyTranscription({
+ *   room,
+ *   onUserTranscriptChange: (text) => console.log('User:', text),
+ * });
+ * ```
+ *
+ * @remarks
+ * - This hook is specifically designed for audio-only mode (no avatar)
+ * - Transcripts are cleared on turn changes (user ↔ agent)
+ * - Uses simple "last segment wins" strategy instead of complex deduplication
+ */
+export const useAudioOnlyTranscription = ({
+  room,
+  onUserTranscriptChange,
+  onAgentTranscriptChange,
+}: UseAudioOnlyTranscriptionParams): UseAudioOnlyTranscriptionReturn => {
+  // DEPRECATED WARNING
+  if (typeof console !== 'undefined' && console.warn) {
+    console.warn(
+      '[DEPRECATED] useAudioOnlyTranscription is deprecated. ' +
+      'Use useLiveKitTranscription instead. ' +
+      'This hook will be removed in v4.0.0.'
+    );
+  }
+  // Transcription state (simple strings, not Maps)
+  const [agentTranscript, setAgentTranscript] = useState('');
+  const [userTranscript, setUserTranscript] = useState('');
+  const [isAgentSpeaking, setIsAgentSpeaking] = useState(false);
+
+  // Ref to track previous speaking state for turn detection
+  const isAgentSpeakingRef = useRef(false);
+
+  /**
+   * Handles transcription received events from LiveKit.
+   *
+   * CRITICAL FIX: "Last Segment Wins" Strategy
+   * -------------------------------------------
+   * LiveKit sends transcription segments in chronological order within an event.
+   * The last segment in the array is always the most recent version of the text.
+   *
+   * Example event: [
+   *   {id: "seg1", text: "hello"},           // Old version
+   *   {id: "seg2", text: "hello how"},      // Newer version
+   *   {id: "seg3", text: "hello how are"}   // Most recent version
+   * ]
+   *
+   * We only use the LAST segment (segments[segments.length - 1]).
+   *
+   * @function handleTranscriptionReceived
+   * @param {import('livekit-client').TranscriptionSegment[]} segments - Array of segments
+   * @param {Participant} [participant] - The participant being transcribed
+   */
+  const handleTranscriptionReceived = useCallback(
+    (segments: import('livekit-client').TranscriptionSegment[], participant?: Participant) => {
+      if (!room) return;
+
+      const isAgent = participant !== room.localParticipant;
+
+      // STRATEGY: "Last segment wins"
+      // Use only the last segment in the array (most recent version)
+      const latestSegment = segments[segments.length - 1];
+
+      if (!latestSegment) return;
+
+      console.log('[AudioOnlyTranscription] Segment received:', {
+        isAgent,
+        participantId: participant?.identity || 'unknown',
+        totalSegments: segments.length,
+        selectedIndex: segments.length - 1,
+        selectedText: latestSegment.text,
+        segmentId: latestSegment.id,
+      });
+
+      if (isAgent) {
+        setAgentTranscript(latestSegment.text);
+        onAgentTranscriptChange?.(latestSegment.text);
+      } else {
+        setUserTranscript(latestSegment.text);
+        onUserTranscriptChange?.(latestSegment.text);
+      }
+    },
+    [room, onUserTranscriptChange, onAgentTranscriptChange]
+  );
+
+  /**
+   * Handles active speakers changed events.
+   * Clears transcripts on turn changes to prevent accumulation.
+   *
+   * @function handleActiveSpeakersChanged
+   * @param {Participant[]} speakers - Array of active speakers
+   */
+  const handleActiveSpeakersChanged = useCallback((speakers: Participant[]) => {
+    if (!room) return;
+
+    const agentSpeaking = speakers.some(
+      (speaker) => speaker !== room.localParticipant,
+    );
+
+    const wasAgentSpeaking = isAgentSpeakingRef.current;
+    isAgentSpeakingRef.current = agentSpeaking;
+    setIsAgentSpeaking(agentSpeaking);
+
+    // Clear user transcript when agent starts speaking (user's turn is complete)
+    if (agentSpeaking && !wasAgentSpeaking) {
+      console.log('[AudioOnlyTranscription] Agent started speaking, clearing user transcript');
+      setUserTranscript('');
+    }
+
+    // Clear agent transcript when user starts speaking (agent's turn is complete)
+    if (!agentSpeaking && wasAgentSpeaking) {
+      console.log('[AudioOnlyTranscription] User started speaking, clearing agent transcript');
+      setAgentTranscript('');
+    }
+  }, [room]);
+
+  /**
+   * Subscribe to room events when room is available.
+   */
+  useEffect(() => {
+    if (!room) return;
+
+    console.log('[AudioOnlyTranscription] Setting up room event listeners');
+
+    room.on(RoomEvent.TranscriptionReceived, handleTranscriptionReceived);
+    room.on(RoomEvent.ActiveSpeakersChanged, handleActiveSpeakersChanged);
+
+    return () => {
+      console.log('[AudioOnlyTranscription] Cleaning up room event listeners');
+      room.off(RoomEvent.TranscriptionReceived, handleTranscriptionReceived);
+      room.off(RoomEvent.ActiveSpeakersChanged, handleActiveSpeakersChanged);
+    };
+  }, [room, handleTranscriptionReceived, handleActiveSpeakersChanged]);
+
+  return {
+    agentTranscript,
+    userTranscript,
+    isAgentSpeaking,
+  };
+};

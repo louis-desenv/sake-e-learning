@@ -1,79 +1,96 @@
-import * as jose from 'jose';
+/**
+ * LiveKit Token Service
+ *
+ * Client-side token generation for LiveKit real-time video/audio rooms.
+ * Uses JWT signing with the jose library to create access tokens.
+ *
+ * @fileoverview This service generates LiveKit access tokens for room participation.
+ * WARNING: In production, token generation MUST occur on the backend to protect
+ * API secrets. This client-side implementation is for development/demo only.
+ *
+ * @dependencies jose
+ *
+ * @author SAke E-Learning Team
+ * @version 3.0.0
+ * @security Warning: API secrets should never be exposed in client-side code.
+ */
+
+import { EntitlementDecision } from "../hooks/useEntitlements";
+import { getApiRootUrl } from "../utils/apiUrl";
 
 interface TokenGeneratorOptions {
-    apiKey: string;
-    apiSecret: string;
-    identity: string;
-    roomName: string;
-    ttl?: number; // Time to live in seconds, default 6 hours
+  apiKey: string;
+  apiSecret: string;
+  identity: string;
+  roomName: string;
+  ttl?: number;
+  conversationId?: string;
 }
 
-/**
- * Generates a LiveKit access token using jose library, structured according to livekit-server-sdk
- *
- * Note: In production, token generation should happen on your backend server
- * to protect your API secret. This is for development/demo purposes.
- */
-export async function generateLiveKitToken(options: TokenGeneratorOptions): Promise<string> {
-    const {
-        apiKey,
-        apiSecret,
-        identity,
-        roomName,
-        ttl = 6 * 60 * 60, // 6 hours default
-    } = options;
+export class LiveKitEntitlementError extends Error {
+  entitlement: EntitlementDecision;
 
-    const now = Math.floor(Date.now() / 1000);
-    const claims = {
-        iss: apiKey,
-        sub: identity,
-        iat: now,
-        nbf: now,
-        exp: now + ttl,
-        video: {
-            room: roomName,
-            roomJoin: true,
-            roomCreate: true,  // Allow room creation
-            canPublish: true,
-            canPublishData: true,
-            canSubscribe: true,
-            // Explicit agent dispatch - forces agent to join when room is created
-            // Using empty string to match any available agent
-            roomAgentDispatch: {
-                agentName: "",
-            },
-        },
-        sip: {
-            admin: true,
-            call: true,
-        },
-        name: identity,
-        metadata: JSON.stringify({ client: 'sake-e-learning' }),
-    };
-
-    const secret = new TextEncoder().encode(apiSecret);
-
-    const token = await new jose.SignJWT(claims)
-        .setProtectedHeader({ alg: 'HS256' })
-        .setIssuedAt(now)
-        .sign(secret);
-
-    return token;
+  constructor(message: string, entitlement: EntitlementDecision) {
+    super(message);
+    this.name = "LiveKitEntitlementError";
+    this.entitlement = entitlement;
+  }
 }
 
-// Default configuration
-// NOTE: In production, token generation should be done on your backend server
-// to protect your API credentials. This is for development/demo purposes only.
-export const LIVEKIT_CONFIG = {
-    // LiveKit Cloud URL
-    serverUrl: import.meta.env.VITE_LIVEKIT_URL || 'wss://sakae-5xpuk5nz.livekit.cloud',
+export async function generateLiveKitToken(
+  options: TokenGeneratorOptions,
+): Promise<string> {
+  const authToken = localStorage.getItem("authToken") || localStorage.getItem("auth_token");
+  if (!authToken) {
+    throw new Error("Authentication required to start a LiveKit session.");
+  }
 
-    // API credentials
-    apiKey: import.meta.env.VITE_LIVEKIT_API_KEY || 'API4DzuzbMC3E9X',
-    apiSecret: import.meta.env.VITE_LIVEKIT_API_SECRET || 'DseZQ3MOPSmSILraZdlwjAuRNeNhuXhQBeWhWfSHYf8G',
+  const response = await fetch(`${getApiRootUrl()}/livekit/token`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      roomName: options.roomName,
+      conversationId: options.conversationId,
+    }),
+  });
 
-    // Default room name - use unique room for each session to avoid conflicts
-    get roomName() {
-        return `sakae-learning-${Date.now()}`;
+  if (response.status === 401) {
+    window.dispatchEvent(new CustomEvent("auth:unauthorized"));
+    throw new Error("Unauthorized");
+  }
+
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    if ((response.status === 403 || response.status === 429) && payload?.entitlement) {
+      throw new LiveKitEntitlementError(
+        payload.message || payload.entitlement.paywall?.title || "LiveKit access blocked",
+        payload.entitlement,
+      );
     }
+
+    throw new Error(payload?.message || "Failed to generate LiveKit token.");
+  }
+
+  if (payload?.serverUrl) {
+    LIVEKIT_CONFIG.serverUrl = payload.serverUrl;
+  }
+
+  if (!payload?.token) {
+    throw new Error("LiveKit token response is missing token.");
+  }
+
+  return payload.token;
+}
+
+export const LIVEKIT_CONFIG = {
+  serverUrl:
+    import.meta.env.VITE_LIVEKIT_URL || "wss://sakae-5xpuk5nz.livekit.cloud",
+  apiKey: import.meta.env.VITE_LIVEKIT_API_KEY || "",
+  apiSecret: "",
+  get roomName() {
+    return `sakae-learning-${Date.now()}`;
+  },
 };

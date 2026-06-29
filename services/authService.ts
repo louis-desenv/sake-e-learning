@@ -1,58 +1,149 @@
-// authService.ts - Integration with ASP.NET Core Identity API
+/**
+ * Authentication Service
+ *
+ * Service layer for integrating with ASP.NET Core Identity API.
+ * Handles user registration, login, logout, token refresh, and session management.
+ *
+ * @fileoverview This service provides methods for all authentication operations,
+ * communicating with the backend API using fetch and handling token management.
+ *
+ * @dependencies None (pure service using native fetch)
+ *
+ * @author SAke E-Learning Team
+ * @version 3.0.0
+ */
 
-// API URL from environment or default to local
-let apiUrl = import.meta.env.VITE_API_URL || 'https://sakaeelearningwebapi-production.up.railway.app/api/v1/auth';
+import { getAuthApiUrl } from '../utils/apiUrl';
 
-// Remove aspas extras se existirem (comum em env vars mal configuradas)
-apiUrl = apiUrl.replace(/['"]+/g, '');
+// ============================================================================
+// CONFIGURATION
+// ============================================================================
 
-const API_BASE_URL = apiUrl;
+/**
+ * Base URL for the authentication API.
+ * Falls back to production Railway URL if not specified in environment.
+ *
+ * @constant {string}
+ */
+const API_BASE_URL = getAuthApiUrl();
 
+// ============================================================================
+// TYPE DEFINITIONS
+// ============================================================================
+
+/**
+ * Request payload for user registration.
+ *
+ * @interface RegisterRequest
+ */
 export interface RegisterRequest {
+  /** User's email address (used as username) */
   email: string;
+  /** User's password (will be hashed server-side) */
   password: string;
 }
 
+/**
+ * Request payload for user login.
+ *
+ * @interface LoginRequest
+ */
 export interface LoginRequest {
+  /** User's email address */
   email: string;
+  /** User's password */
   password: string;
 }
 
-// Formato esperado pelo AuthContext.tsx
+/**
+ * Standard authentication response format expected by AuthContext.
+ * Contains tokens, expiration, and user information.
+ *
+ * @interface AuthResponse
+ */
 export interface AuthResponse {
+  /** JWT access token for API authentication */
   token: string;
+  /** Optional refresh token for obtaining new access tokens */
   refreshToken?: string;
+  /** ISO 8601 timestamp of token expiration */
   expiration: string;
+  /** Authenticated user information */
   user: {
+    /** Unique user identifier */
     id: string;
+    /** User's email address */
     email: string;
+    /** Optional display name */
     name?: string;
+    /** Optional array of user roles/permissions */
     roles?: string[];
   };
 }
 
-// Formato retornado pela API do Identity
+/**
+ * Raw response format from ASP.NET Core Identity API.
+ * Represents the token data structure returned by the backend.
+ *
+ * @interface IdentityLoginResponse
+ * @private
+ */
 interface IdentityLoginResponse {
+  /** Type of token returned (typically "Bearer") */
   tokenType: string;
+  /** The JWT access token */
   accessToken: string;
+  /** Token validity duration in seconds */
   expiresIn: number;
+  /** Refresh token for obtaining new access tokens */
   refreshToken: string;
 }
 
+/**
+ * Standard error response format from the API.
+ *
+ * @interface ApiError
+ */
 export interface ApiError {
+  /** Human-readable error message */
   message: string;
+  /** Optional error title/summary */
   title?: string;
+  /** Optional field-specific validation errors */
   errors?: Record<string, string[]>;
 }
 
+// ============================================================================
+// SERVICE CLASS
+// ============================================================================
+
+/**
+ * Authentication service class.
+ * Provides methods for all authentication operations with the backend API.
+ *
+ * @class AuthService
+ */
 class AuthService {
+  /** Base URL for all authentication endpoints */
   private readonly baseUrl = API_BASE_URL;
 
   /**
-   * Converte resposta do Identity para formato esperado pelo AuthContext
+   * Converts Identity API response to the format expected by AuthContext.
+   * Calculates expiration date and derives user information.
+   *
+   * @private
+   * @param {IdentityLoginResponse} response - Raw response from Identity API
+   * @param {string} email - User's email for name derivation
+   * @returns {AuthResponse} Formatted authentication response
+   *
+   * @example
+   * ```ts
+   * const formatted = this.convertResponse(identityResponse, 'user@example.com');
+   * // Returns: { token: '...', user: { name: 'user', ... } }
+   * ```
    */
   private convertResponse(response: IdentityLoginResponse, email: string): AuthResponse {
-    // Calcula data de expiração
+    // Calculate expiration date from expiresIn seconds
     const expirationDate = new Date();
     expirationDate.setSeconds(expirationDate.getSeconds() + response.expiresIn);
 
@@ -61,16 +152,33 @@ class AuthService {
       refreshToken: response.refreshToken,
       expiration: expirationDate.toISOString(),
       user: {
-        id: 'current', // API não retorna ID no login
+        id: 'current', // API doesn't return ID on login
         email: email,
-        name: email.split('@')[0], // Usa parte do email como nome
+        name: email.split('@')[0], // Use email prefix as display name
       },
     };
   }
 
   /**
-   * Register a new user
-   * Endpoint nativo do Identity: POST /register
+   * Registers a new user account.
+   * Creates the account and automatically logs in the user.
+   *
+   * @async
+   * @param {RegisterRequest} data - Registration credentials
+   * @returns {Promise<AuthResponse>} Authentication data for the new user
+   * @throws {Error} When registration fails (invalid email, weak password, etc.)
+   *
+   * @example
+   * ```ts
+   * try {
+   *   const authData = await authService.register({
+   *     email: 'user@example.com',
+   *     password: 'SecurePass123!'
+   *   });
+   * } catch (error) {
+   *   console.error('Registration failed:', error.message);
+   * }
+   * ```
    */
   async register(data: RegisterRequest): Promise<AuthResponse> {
     const response = await fetch(`${this.baseUrl}/register`, {
@@ -86,13 +194,30 @@ class AuthService {
       throw new Error(error.title || error.message || 'Registration failed');
     }
 
-    // Após registro, faz login automático
+    // Auto-login after successful registration
     return this.login({ email: data.email, password: data.password });
   }
 
   /**
-   * Login user
-   * Endpoint nativo do Identity: POST /login
+   * Authenticates a user with email and password.
+   *
+   * @async
+   * @param {LoginRequest} data - Login credentials
+   * @returns {Promise<AuthResponse>} Authentication data including tokens
+   * @throws {Error} When credentials are invalid or login fails
+   *
+   * @example
+   * ```ts
+   * try {
+   *   const authData = await authService.login({
+   *     email: 'user@example.com',
+   *     password: 'SecurePass123!'
+   *   });
+   *   // Store token and navigate to app
+   * } catch (error) {
+   *   console.error('Login failed:', error.message);
+   * }
+   * ```
    */
   async login(data: LoginRequest): Promise<AuthResponse> {
     const response = await fetch(`${this.baseUrl}/login`, {
@@ -120,8 +245,21 @@ class AuthService {
   }
 
   /**
-   * Logout user
-   * Endpoint customizado: POST /logout
+   * Logs out the current user.
+   * Notifies the backend to invalidate the session/token.
+   *
+   * @async
+   * @param {string} [token] - Optional auth token (uses localStorage if not provided)
+   * @returns {Promise<void>}
+   *
+   * @remarks Errors are logged but don't throw, allowing logout to complete
+   * even if the backend call fails.
+   *
+   * @example
+   * ```ts
+   * await authService.logout();
+   * // Clear local state and redirect to login
+   * ```
    */
   async logout(token?: string): Promise<void> {
     const authToken = token || localStorage.getItem('authToken');
@@ -131,7 +269,7 @@ class AuthService {
         await fetch(`${this.baseUrl}/logout`, {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken}`,
             'Content-Type': 'application/json',
           },
         });
@@ -142,8 +280,22 @@ class AuthService {
   }
 
   /**
-   * Refresh access token
-   * Endpoint nativo: POST /refresh
+   * Refreshes an expired or expiring access token using a refresh token.
+   *
+   * @async
+   * @param {string} refreshToken - The refresh token from initial login
+   * @returns {Promise<AuthResponse>} New authentication data with fresh tokens
+   * @throws {Error} When refresh token is invalid or expired
+   *
+   * @example
+   * ```ts
+   * try {
+   *   const newAuthData = await authService.refreshToken(refreshToken);
+   *   // Update stored tokens
+   * } catch (error) {
+   *   // Force login - refresh token is also expired
+   * }
+   * ```
    */
   async refreshToken(refreshToken: string): Promise<AuthResponse> {
     const response = await fetch(`${this.baseUrl}/refresh`, {
@@ -160,7 +312,7 @@ class AuthService {
 
     const result: IdentityLoginResponse = await response.json();
 
-    // Recupera email do localStorage
+    // Retrieve email from localStorage for user info
     const storedUser = localStorage.getItem('user');
     const email = storedUser ? JSON.parse(storedUser).email : 'user';
 
@@ -168,7 +320,17 @@ class AuthService {
   }
 
   /**
-   * Check if token is expired
+   * Checks if an authentication token has expired.
+   *
+   * @param {string} expiration - ISO 8601 timestamp of token expiration
+   * @returns {boolean} True if token is expired, false otherwise
+   *
+   * @example
+   * ```ts
+   * if (authService.isTokenExpired(storedExpiration)) {
+   *   // Refresh token or logout
+   * }
+   * ```
    */
   isTokenExpired(expiration: string): boolean {
     const expirationDate = new Date(expiration);
@@ -176,13 +338,28 @@ class AuthService {
   }
 
   /**
-   * Get authorization header
+   * Constructs an Authorization header with Bearer token.
+   *
+   * @param {string} token - JWT access token
+   * @returns {Record<string, string>} Headers object with Authorization
+   *
+   * @example
+   * ```ts
+   * const headers = authService.getAuthHeader(token);
+   * fetch('/api/protected', { headers });
+   * ```
    */
   getAuthHeader(token: string): Record<string, string> {
     return {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     };
   }
 }
 
+/**
+ * Singleton instance of the authentication service.
+ * Use this exported instance for all authentication operations.
+ *
+ * @constant {AuthService}
+ */
 export const authService = new AuthService();

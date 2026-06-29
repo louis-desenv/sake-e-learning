@@ -1,11 +1,46 @@
+/**
+ * LiveKit Chat Page
+ *
+ * Full-featured LiveKit voice chat interface with transcription.
+ * Provides connection management, participant display, and call controls.
+ *
+ * @fileoverview This page implements a complete LiveKit voice chat UI with real-time
+ * transcription, connection status, participant list, and technical details display.
+ *
+ * @dependencies react, ../hooks/useLiveKitRoom, ../services/livekitTokenService, livekit-client, ../context/UserContext
+ *
+ * @author SAke E-Learning Team
+ * @version 3.0.0
+ */
+
 import React, { useState, useEffect } from 'react';
 import { useLiveKitRoom } from '../hooks/useLiveKitRoom';
 import { generateLiveKitToken, LIVEKIT_CONFIG } from '../services/livekitTokenService';
 import { ConnectionState } from 'livekit-client';
 import { useUser } from '../context/UserContext';
-// Redeploy trigger: Sync to 4552da5
+import { useTranslation } from 'react-i18next';
 
+// ============================================================================
+// PAGE COMPONENT
+// ============================================================================
+
+/**
+ * LiveKit voice chat page component.
+ *
+ * Provides a complete voice chat interface with LiveKit integration,
+ * featuring real-time transcription, connection management, and technical details.
+ *
+ * @component LiveKitChat
+ * @returns {JSX.Element} LiveKit chat interface
+ *
+ * @remarks
+ * - Displays connection status with colored indicators
+ * - Shows real-time transcription of user and agent speech
+ * - Includes participant list and technical connection details
+ * - Video element muted (audio comes from separate track)
+ */
 const LiveKitChat: React.FC = () => {
+    const { t } = useTranslation();
     const { user } = useUser();
     const {
         isConnected,
@@ -24,6 +59,10 @@ const LiveKitChat: React.FC = () => {
     const [isGeneratingToken, setIsGeneratingToken] = useState(false);
     const [tokenError, setTokenError] = useState<string | null>(null);
 
+    /**
+     * Handles connection to LiveKit room.
+     * Generates token and initiates connection with user identity.
+     */
     const handleConnect = async () => {
         setIsGeneratingToken(true);
         setTokenError(null);
@@ -54,40 +93,50 @@ const LiveKitChat: React.FC = () => {
         }
     };
 
+    /**
+     * Handles disconnection from LiveKit room.
+     */
     const handleDisconnect = async () => {
         await disconnect();
     };
 
+    /**
+     * Returns human-readable connection state text.
+     */
     const getConnectionStateText = () => {
-        if (isGeneratingToken) return 'Generating token...';
+        if (isGeneratingToken) return t('liveKitPage.generatingToken');
         switch (connectionState) {
             case ConnectionState.Connected:
-                return 'Connected';
+                return t('liveKitPage.connected');
             case ConnectionState.Connecting:
-                return 'Connecting...';
+                return t('liveKitPage.connecting');
             case ConnectionState.Reconnecting:
-                return 'Reconnecting...';
+                return t('liveKitPage.reconnecting');
             case ConnectionState.Disconnected:
-                return 'Disconnected';
+                return t('liveKitPage.disconnected');
             default:
-                return 'Unknown';
+                return t('liveKitPage.unknown');
         }
     };
 
+    /**
+     * Determines button state based on connection status.
+     * Returns text, color, and animation state for the main button.
+     */
     const getButtonState = () => {
         if (isGeneratingToken) {
-            return { text: 'Generating Token...', color: 'bg-yellow-500', animate: true };
+            return { text: t('liveKitPage.generatingToken'), color: 'bg-yellow-500', animate: true };
         }
         if (connectionState === ConnectionState.Connecting) {
-            return { text: 'Connecting...', color: 'bg-yellow-500', animate: true };
+            return { text: t('liveKitPage.connecting'), color: 'bg-yellow-500', animate: true };
         }
         if (!isConnected) {
-            return { text: 'Start Voice Session', color: 'bg-orange-600', animate: false };
+            return { text: t('liveKitPage.startVoiceSession'), color: 'bg-orange-600', animate: false };
         }
         if (isAgentSpeaking) {
-            return { text: 'Agent Speaking...', color: 'bg-purple-500', animate: true };
+            return { text: t('liveKitPage.agentSpeaking'), color: 'bg-purple-500', animate: true };
         }
-        return { text: 'Listening...', color: 'bg-green-500', animate: true };
+        return { text: t('liveKitPage.listening'), color: 'bg-green-500', animate: true };
     };
 
     const buttonState = getButtonState();
@@ -96,8 +145,8 @@ const LiveKitChat: React.FC = () => {
     return (
         <div className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
             <header className="text-center mb-6">
-                <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">LiveKit Voice Agent</h1>
-                <p className="text-gray-500 mt-1">Connected to LiveKit Server with Gemini Agent</p>
+                <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">{t('liveKitPage.title')}</h1>
+                <p className="text-gray-500 mt-1">{t('liveKitPage.subtitle')}</p>
                 <div className="mt-2 inline-flex items-center space-x-2 px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">
                     <span className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : isLoading ? 'bg-yellow-500 animate-pulse' : 'bg-gray-400'}`}></span>
                     <span>{getConnectionStateText()}</span>
@@ -108,18 +157,18 @@ const LiveKitChat: React.FC = () => {
                 <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-6 space-y-4">
 
                     {/* Connection Info Banner */}
-                    <div className={`p-4 rounded-xl border ${isConnected ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-200' : 'bg-gradient-to-r from-orange-50 to-amber-50 border-orange-200'}`}>
+                    <div className={`p-4 rounded-xl border ${isConnected ? 'bg-linear-to-r from-green-50 to-emerald-50 border-green-200' : 'bg-linear-to-r from-orange-50 to-amber-50 border-orange-200'}`}>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
                                 <div className="text-3xl">{isConnected ? '🎙️' : '🔊'}</div>
                                 <div>
                                     <h3 className="font-semibold text-gray-800">
-                                        {isConnected ? 'LiveKit Voice Agent' : 'Ready to Connect'}
+                                        {isConnected ? t('liveKitPage.title') : t('liveKitPage.readyToConnect')}
                                     </h3>
                                     <p className="text-sm text-gray-600">
                                         {isConnected
-                                            ? `${participants.length} participant(s) in room`
-                                            : `Room: ${room?.name || 'New Session'}`
+                                            ? t('liveKitPage.participantsCount', { count: participants.length })
+                                            : t('liveKitPage.roomName', { name: room?.name || t('liveKitPage.newSession') })
                                         }
                                     </p>
                                 </div>
@@ -129,21 +178,20 @@ const LiveKitChat: React.FC = () => {
                                     onClick={toggleMicrophone}
                                     className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors"
                                 >
-                                    Toggle Mic
+                                    {t('liveKitPage.toggleMic')}
                                 </button>
                             )}
                         </div>
                     </div>
 
                     {/* Voice Visualizer / Avatar Video */}
-                    <div className="h-64 relative rounded-lg bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center overflow-hidden">
-                        {/* Always render the video element so the hook can attach to it. 
-                            We control visibility or styling, but the DOM node must exist. */}
-                        <video 
-                            id="bey-avatar-video" 
-                            className="absolute inset-0 w-full h-full object-cover" 
-                            autoPlay 
-                            playsInline 
+                    <div className="h-64 relative rounded-lg bg-linear-to-br from-orange-50 to-amber-50 flex items-center justify-center overflow-hidden">
+                        {/* Always render the video element so the hook can attach to it */}
+                        <video
+                            id="bey-avatar-video"
+                            className="absolute inset-0 w-full h-full object-cover"
+                            autoPlay
+                            playsInline
                             muted // Muted because audio comes from a separate track
                         />
 
@@ -151,13 +199,11 @@ const LiveKitChat: React.FC = () => {
                             <div className="text-center z-10">
                                 <div className="text-4xl mb-2">🎤</div>
                                 <p className="text-sm text-gray-600">
-                                    Click below to connect as <strong>{user.name}</strong>
+                                    {t('liveKitPage.clickToConnect')} <strong>{user.name}</strong>
                                 </p>
                             </div>
                         ) : (
-                            // Only show visualizer fallback if we want, or overlay it. 
-                            // For now, let's keep the visualizer as a fallback or overlay if video isn't opaque yet.
-                            // But usually, once video plays, it covers this.
+                            // Visualizer fallback when video isn't opaque yet
                             <div className="flex items-center space-x-2 z-10 opacity-50 pointer-events-none">
                                 {[...Array(5)].map((_, i) => (
                                     <div
@@ -173,21 +219,21 @@ const LiveKitChat: React.FC = () => {
                                     />
                                 ))}
                                 <span className="ml-4 text-gray-600 font-medium bg-white/50 px-2 py-1 rounded">
-                                    {isAgentSpeaking ? 'Agent is speaking...' : 'Listening to you...'}
+                                    {isAgentSpeaking ? t('liveKitPage.agentIsSpeaking') : t('liveKitPage.listeningToYou')}
                                 </span>
                             </div>
                         )}
                     </div>
 
                     {/* Transcript Display */}
-                    <div className="text-center min-h-[80px] p-3 border-t border-b border-gray-200 flex flex-col justify-center">
+                    <div className="text-center min-h-20 p-3 border-t border-b border-gray-200 flex flex-col justify-center">
                         <p className="text-lg text-gray-500 font-medium mb-1">
-                            <span className="font-bold text-gray-800">You: </span>
+                            <span className="font-bold text-gray-800">{t('voiceChat.you')}: </span>
                             {userTranscript || <span className="italic text-gray-400">...</span>}
                         </p>
                         <p className="text-lg text-orange-600 font-medium">
-                            <span className="font-bold">Agent: </span>
-                            {agentTranscript || (isConnected ? <span className="italic text-orange-300">Listening...</span> : <span className="italic text-gray-400">...</span>)}
+                            <span className="font-bold">{t('voiceChat.agent')}: </span>
+                            {agentTranscript || (isConnected ? <span className="italic text-orange-300">{t('liveKitPage.listening')}</span> : <span className="italic text-gray-400">...</span>)}
                         </p>
                     </div>
 
@@ -206,27 +252,27 @@ const LiveKitChat: React.FC = () => {
                     >
                         <div className="flex items-center justify-center space-x-3">
                             {buttonState.animate && <span className="animate-pulse">●</span>}
-                            <span>{isConnected ? 'Disconnect' : buttonState.text}</span>
+                            <span>{isConnected ? t('liveKitPage.disconnect') : buttonState.text}</span>
                         </div>
                     </button>
 
                     <p className="text-xs text-center text-gray-400 mt-2">
-                        Connects to LiveKit room "{LIVEKIT_CONFIG.roomName}" with your hosted Gemini agent.
+                        {t('liveKitPage.footerNote', { name: LIVEKIT_CONFIG.roomName })}
                     </p>
 
                     {/* Participants List */}
                     {isConnected && participants.length > 0 && (
                         <details className="mt-4">
                             <summary className="text-sm text-gray-500 cursor-pointer hover:text-gray-700">
-                                Room Participants ({participants.length})
+                                {t('liveKitPage.roomParticipants', { count: participants.length })}
                             </summary>
                             <div className="mt-2 p-3 bg-gray-50 rounded-lg">
                                 <ul className="space-y-1">
                                     {participants.map((p, i) => (
                                         <li key={i} className="text-xs text-gray-600 flex items-center space-x-2">
                                             <span className={`w-2 h-2 rounded-full ${p.isSpeaking ? 'bg-green-500' : 'bg-gray-300'}`}></span>
-                                            <span>{p.identity || 'Unknown'}</span>
-                                            {p === participants[0] && <span className="text-gray-400">(you)</span>}
+                                            <span>{p.identity || t('liveKitPage.unknown')}</span>
+                                            {p === participants[0] && <span className="text-gray-400">{t('liveKitPage.youIndicator')}</span>}
                                         </li>
                                     ))}
                                 </ul>
@@ -237,7 +283,7 @@ const LiveKitChat: React.FC = () => {
                     {/* Technical Details */}
                     <details className="mt-4">
                         <summary className="text-sm text-gray-500 cursor-pointer hover:text-gray-700">
-                            Connection Details
+                            {t('liveKitPage.connectionDetails')}
                         </summary>
                         <div className="mt-2 p-3 bg-gray-50 rounded-lg text-xs font-mono text-gray-600">
                             <pre>{JSON.stringify({
@@ -245,7 +291,7 @@ const LiveKitChat: React.FC = () => {
                                 roomName: LIVEKIT_CONFIG.roomName,
                                 identity: user.name,
                                 connectionState: connectionState,
-                            }, null, 2)}</pre>
+                             }, null, 2)}</pre>
                         </div>
                     </details>
                 </div>

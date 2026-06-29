@@ -27,6 +27,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.claude/
 
 # Debug/error logs folder
 erros/
+
+# Invalid/system files
+nul
+
+# Temporary files
+tmpclaude-*/
+
+# Documentation folder
+docs/
+
+# Private keys / certificates
+*.prv
+*.key
+*.pub
+*-service-account.json
+sakae-tts-*.json

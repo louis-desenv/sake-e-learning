@@ -1,0 +1,857 @@
+[
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\AvailablePlans.tsx",
+    "type": "Tag Content",
+    "text": "('annual');\n    const [selectedPlan, setSelectedPlan] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\AvailablePlans.tsx",
+    "type": "Tag Content",
+    "text": "[OK]"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\AvailablePlans.tsx",
+    "type": "Tag Content",
+    "text": "[NO]"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\AvailablePlans.tsx",
+    "type": "Tag Content",
+    "text": "[OK]"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\AvailablePlans.tsx",
+    "type": "Tag Content",
+    "text": "[OK]"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\TextChatWithScenario.tsx",
+    "type": "Tag Content",
+    "text": ";\r\n  }\r\n\r\n  // Convert slug to ChatScenario enum\r\n  const chatScenario = getScenarioFromSlug(scenario);\r\n\r\n  if (!chatScenario) {\r\n    return"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\TextChatWithScenario.tsx",
+    "type": "Tag Content",
+    "text": ";\r\n  }\r\n\r\n  // Render TextChatUI with the scenario\r\n  return"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\VoiceOnlyChat.tsx",
+    "type": "Tag Content",
+    "text": "(voiceSecondsRemaining);\r\n  const [isAgentSpeaking, setIsAgentSpeaking] = useState(false);\r\n  const [timeExpired, setTimeExpired] = useState(false);\r\n  const [showEndOverlay, setShowEndOverlay] = useState(false);\r\n  const [hasStartedTrial, setHasStartedTrial] = useState(false);\r\n  const [sessionSummary, setSessionSummary] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\VoiceOnlyChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n  // Use Date.now() as reference to avoid setInterval drift\r\n  const startTimeRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\VoiceOnlyChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const pausedElapsedRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\VoiceOnlyChat.tsx",
+    "type": "Tag Content",
+    "text": "(0); // seconds already elapsed before pause\r\n  const rafRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\VoiceOnlyChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const limitRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\VoiceOnlyChat.tsx",
+    "type": "Tag Content",
+    "text": "setHasStartedTrial(true)}\r\n            className=\"w-full h-12 bg-violet-600 text-white font-bold rounded-xl hover:bg-violet-700 transition-colors mb-3 flex items-center justify-center gap-2\"\r\n          >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\WithAvatarChat.tsx",
+    "type": "Tag Content",
+    "text": "Level 3 (Communicator)"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\WithAvatarChat.tsx",
+    "type": "Tag Content",
+    "text": "onwards."
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\WithAvatarChat.tsx",
+    "type": "Tag Content",
+    "text": ");\r\n  }\r\n\r\n  if (voiceSecondsRemaining === 0) {\r\n    return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\chat\\WithAvatarChat.tsx",
+    "type": "Tag Content",
+    "text": ");\r\n  }\r\n\r\n  return"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\GoogleCallback.tsx",
+    "type": "Tag Content",
+    "text": "* ```\r\n *\r\n * @remarks\r\n * - Uses useRef to prevent double execution (concurrency guard)\r\n * - Parses JWT manually to extract user name from 'unique_name' claim\r\n * - Falls back to 'name' claim if 'unique_name' is not present\r\n * - Defaults to Intermediate level and Travel goals for new users\r\n * - Redirects to login on error, home on success\r\n */\r\nconst GoogleCallback: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\GuidedLearning.tsx",
+    "type": "Tag Content",
+    "text": "([]);\n    const [page, setPage] = useState(1);\n    const [total, setTotal] = useState(0);\n    const [loading, setLoading] = useState(false);\n    const [deleteConfirmId, setDeleteConfirmId] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\GuidedLearning.tsx",
+    "type": "Tag Content",
+    "text": "(\n                            s.is_locked ? ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\HomeDashboard.tsx",
+    "type": "Tag Content",
+    "text": "setShowPaymentSuccess(false)} className=\"ml-4 opacity-70 hover:opacity-100\">✕"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\HomeDashboard.tsx",
+    "type": "Tag Content",
+    "text": "}\r\n                    to=\"/plans\"\r\n                    color=\"border-t-pink-400\"\r\n                />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\HomeDashboard.tsx",
+    "type": "Tag Content",
+    "text": "}\r\n                    to=\"/real-life\"\r\n                    color=\"border-t-blue-400\"\r\n                />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\HomeDashboard.tsx",
+    "type": "Tag Content",
+    "text": "}\r\n                    to=\"/livekit-chat\"\r\n                    color=\"border-t-orange-400\"\r\n                />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\HomeDashboard.tsx",
+    "type": "Tag Content",
+    "text": "}\r\n                    to=\"/guided-learning\"\r\n                    color=\"border-t-green-400\"\r\n                />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\HomeDashboard.tsx",
+    "type": "Tag Content",
+    "text": "}\r\n                    to=\"/profile\"\r\n                    color=\"border-t-yellow-400\"\r\n                />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaChat.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [activeScenario, setActiveScenario] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [page, setPage] = useState(1);\r\n  const [total, setTotal] = useState(0);\r\n  const [loading, setLoading] = useState(!!slug);\r\n  const [slugNotFound, setSlugNotFound] = useState(false);\r\n  const [scenarioLoaded, setScenarioLoaded] = useState(false);\r\n  const [deleteConfirmId, setDeleteConfirmId] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaChat.tsx",
+    "type": "Tag Content",
+    "text": "← Back"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaChat.tsx",
+    "type": "Tag Content",
+    "text": "(\r\n            s.is_locked ? ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaLibrary.tsx",
+    "type": "Tag Content",
+    "text": "&times;"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaLibrary.tsx",
+    "type": "Tag Content",
+    "text": "/g, \"&gt;\")\n        .replace(/\"/g, \"&quot;\")\n        .replace(/'/g, \"&#039;\");\n\n    // Substituir **texto** por"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaLibrary.tsx",
+    "type": "Tag Content",
+    "text": "texto"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaLibrary.tsx",
+    "type": "Tag Content",
+    "text": "escaped = escaped.replace(/\\*\\*(.*?)\\*\\*/g, '"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaLibrary.tsx",
+    "type": "Tag Content",
+    "text": "');\n\n    // Substituir quebras de linha por"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\IaLibrary.tsx",
+    "type": "Tag Content",
+    "text": "escaped = escaped.replace(/\\n/g, '"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\LiveKitChat.tsx",
+    "type": "Tag Content",
+    "text": ") : (\n                            // Visualizer fallback when video isn't opaque yet"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\Login.tsx",
+    "type": "Tag Content",
+    "text": "void;\r\n}\r\n\r\n// ============================================================================\r\n// UTILITY FUNCTIONS\r\n// ============================================================================\r\n\r\n/**\r\n * Retrieves onboarding data from localStorage.\r\n * Used to pre-fill registration form with previously entered information.\r\n *\r\n * @function getOnboardingData\r\n * @returns {Partial"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\Login.tsx",
+    "type": "Tag Content",
+    "text": "| null} Onboarding data if available, null otherwise\r\n *\r\n * @private\r\n */\r\nconst getOnboardingData = (): Partial"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\Login.tsx",
+    "type": "Tag Content",
+    "text": "* ```\r\n */\r\nconst Login: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\Login.tsx",
+    "type": "Tag Content",
+    "text": "Learn English with AI"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\Login.tsx",
+    "type": "Tag Content",
+    "text": "🛠️ Dev Login (local only)"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\MyProfile.tsx",
+    "type": "Tag Content",
+    "text": ");\r\n    }\r\n\r\n    return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\MyProfile.tsx",
+    "type": "Tag Content",
+    "text": ") : conversations.length === 0 ? ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\pages\\Register.tsx",
+    "type": "Tag Content",
+    "text": "} e - Input change event\r\n   */\r\n  const handleChange = (e: React.ChangeEvent"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\AudioVisualizer.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const animationRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\AudioVisualizer.tsx",
+    "type": "Tag Content",
+    "text": ");\r\n};\r\n\r\nexport const AudioPulse: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\PracticeMode.tsx",
+    "type": "Tag Content",
+    "text": "void;\r\n}\r\n\r\nexport const PracticeMode: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\PracticeMode.tsx",
+    "type": "Tag Content",
+    "text": "('idle');\r\n  const [recordingTime, setRecordingTime] = useState(0);\r\n  const [audioLevel, setAudioLevel] = useState(0);\r\n  const [transcript, setTranscript] = useState('');\r\n  const [feedback, setFeedback] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\PracticeMode.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n  const recognitionRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\PracticeMode.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const timerRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\PracticeMode.tsx",
+    "type": "Tag Content",
+    "text": "();\r\n  const audioContextRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\PracticeMode.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const analyserRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\RealTimeMode.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n  // Conversation tracking\r\n  const [currentConversationId, setCurrentConversationId] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\RealTimeMode.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const conversationStartTime = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\RealTimeMode.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const lastSavedUserTranscript = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\RealTimeMode.tsx",
+    "type": "Tag Content",
+    "text": "('');\r\n  const lastSavedAgentTranscript = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\audio\\SimpleWaveVisualizer.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const animationRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\BeyAvatar.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n    /** Reference to the active Beyond Presence session instance */\r\n    const beySession = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Card.tsx",
+    "type": "Tag Content",
+    "text": "}\r\n *   to=\"/guided-learning\"\r\n *   color=\"border-t-green-500\"\r\n * />\r\n * ```\r\n *\r\n * @remarks\r\n * - Uses Link for client-side navigation\r\n * - Shadow increases on hover with upward translation\r\n * - Top border color indicates content category\r\n */\r\nconst Card: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Card.tsx",
+    "type": "Title",
+    "text": "Guided Learning"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const animationFrameRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const endSessionRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "void) | null>(null);\r\n\r\n  // History State\r\n  const [showHistory, setShowHistory] = useState(false);\r\n  const [currentConversationId, setCurrentConversationId] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const messagesEndRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const previousHistoryLength = useRef(0);\r\n  const conversationStartTime = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const conversationIdRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n  // Full History List State\r\n  const [historyConversations, setHistoryConversations] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [loadingHistory, setLoadingHistory] = useState(false);\r\n  const [expandedConversationId, setExpandedConversationId] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [conversationMessages, setConversationMessages] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "Gemini Live"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "Gemini"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "setShowFeedbackOverlay(false)}\r\n                          className=\"text-white/80 hover:text-white\"\r\n                        >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "setShowFeedbackDetails(!showFeedbackDetails)}\r\n                              className=\"flex items-center gap-1 text-[10px] font-bold text-cyan-600 uppercase tracking-widest hover:text-cyan-800 transition-colors\"\r\n                            >\r\n                              {showFeedbackDetails ?"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\GeminiVoiceChat.tsx",
+    "type": "Tag Content",
+    "text": "setShowHistory(false)}\r\n                  className=\"w-8 h-8 rounded-full hover:bg-gray-200 flex items-center justify-center transition-colors\"\r\n                >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\icons\\NavIcons.tsx",
+    "type": "Tag Content",
+    "text": "* ```\r\n */\r\nexport const HomeIcon: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Onboarding.tsx",
+    "type": "Tag Content",
+    "text": "void;\n  /** Pre-filled user name from registration/login */\n  userName?: string;\n}\n\n// mapLang is now provided by ../utils/langUtils as mapLangCode\nconst mapLang = mapLangCode;\n\n// ============================================================================\n// COMPONENT\n// ============================================================================\n\nconst Onboarding: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Onboarding.tsx",
+    "type": "Tag Content",
+    "text": ");\n      case 2:\n        return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Onboarding.tsx",
+    "type": "Tag Content",
+    "text": ");\n      case 3:\n        return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Onboarding.tsx",
+    "type": "Tag Content",
+    "text": ");\n      case 4:\n        return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Onboarding.tsx",
+    "type": "Tag Content",
+    "text": ");\n      case 5:\n        return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Onboarding.tsx",
+    "type": "Tag Content",
+    "text": ");\n      case 6: {\n        const DAILY_GOALS: { key: DailyGoal; minutes: string; Icon: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Onboarding.tsx",
+    "type": "Tag Content",
+    "text": ");\n      }\n      case 7:\n        return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Onboarding.tsx",
+    "type": "Tag Content",
+    "text": ");\n      default:\n        return null;\n    }\n  };\n\n  // Calculate progress percentage for the progress bar (7 steps total)\n  const progress = (step / 7) * 100;\n\n  return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\PageTransition.tsx",
+    "type": "Tag Content",
+    "text": "* ```\r\n *\r\n * @remarks\r\n * - 300ms transition duration\r\n * - Uses CSS opacity for smooth fading\r\n * - Half-delay content swap for seamless appearance\r\n * - Only triggers on pathname changes\r\n */\r\nconst PageTransition: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\PrivateRoute.tsx",
+    "type": "Tag Content",
+    "text": "* ```\r\n *\r\n * @remarks\r\n * - Preserves attempted location in navigation state\r\n * - Uses replace: true to prevent back button issues\r\n * - Loading state prevents flash of unauthorized content\r\n * - Integrates with AuthContext for auth state management\r\n */\r\nconst PrivateRoute: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\PrivateRoute.tsx",
+    "type": "Tag Content",
+    "text": ");\r\n  }\r\n\r\n  /**\r\n   * Redirect to login if not authenticated.\r\n   * Saves attempted location for post-login redirect.\r\n   */\r\n  if (!isAuthenticated) {\r\n    return"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\PrivateRoute.tsx",
+    "type": "Tag Content",
+    "text": ";\r\n  }\r\n\r\n  return"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [messages, setMessages] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [isWelcomeLoading, setIsWelcomeLoading] = useState(true);\r\n  const [correctionsEnabled, setCorrectionsEnabled] = useState(true);\r\n  const [isLoading, setIsLoading] = useState(false);\r\n  const [userMessageCount, setUserMessageCount] = useState(0);\r\n  const [expandedFeedback, setExpandedFeedback] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const conversationStartTime = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const lastSavedUserMessage = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "('');\r\n  const lastSavedAiMessage = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "('');\r\n\r\n  // Prevent duplicate message sends\r\n  const isSendingRef = useRef(false);\r\n\r\n  // TTS States\r\n  const [currentSpeakingId, setCurrentSpeakingId] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [ttsEnabled, setTtsEnabled] = useState(true);\r\n  const [selectedService, setSelectedService] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(TTSService.WEB_SPEECH);\r\n  const [webSpeechVoices, setWebSpeechVoices] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [webSpeechMaleVoices, setWebSpeechMaleVoices] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [webSpeechFemaleVoices, setWebSpeechFemaleVoices] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [elevenLabsVoices, setElevenLabsVoices] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [elevenLabsMaleVoices, setElevenLabsMaleVoices] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [elevenLabsFemaleVoices, setElevenLabsFemaleVoices] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [selectedVoice, setSelectedVoice] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [isLoadingVoices, setIsLoadingVoices] = useState(false);\r\n  const [isGeneratingSpeech, setIsGeneratingSpeech] = useState(false);\r\n  const [ttsError, setTtsError] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [voicesLoaded, setVoicesLoaded] = useState(false);\r\n  const [elevenLabsAvailable, setElevenLabsAvailable] = useState(false);\r\n\r\n  // Avatar gender state\r\n  const [avatarGender, setAvatarGender] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "('male');\r\n\r\n  // Settings modal state\r\n  const [settingsOpen, setSettingsOpen] = useState(false);\r\n\r\n  // History panel state\r\n  const [showHistory, setShowHistory] = useState(false);\r\n  const [historyFullscreen, setHistoryFullscreen] = useState(false);\r\n  const [historyConversations, setHistoryConversations] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [loadingHistory, setLoadingHistory] = useState(false);\r\n  const [expandedConversationId, setExpandedConversationId] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [conversationMessages, setConversationMessages] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "clearTimeout(timer);\r\n    }\r\n  }, [voicesLoaded, selectedVoice, ttsEnabled, messages, speakText]);\r\n\r\n  const [input, setInput] = useState('');\r\n  const [isRecording, setIsRecording] = useState(false);\r\n  const [liveTranscript, setLiveTranscript] = useState('');\r\n  const mediaRecorderRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const audioChunksRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const abortControllerRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const recognitionRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const silenceTimerRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const lastTranscriptRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "('');\r\n  const isRecordingRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "('');\r\n  const hasSpokenWelcomeRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": ") : isGeneratingSpeech ? (\r\n                        // Loading indicator"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": ") : selectedService === TTSService.ELEVENLABS ? (\r\n                        // ElevenLabs indicator (star)"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": ") : (\r\n                        // Web Speech indicator (speaker)"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": ") : isGeneratingSpeech ? ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setSettingsOpen(false)}\r\n                className=\"w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors\"\r\n              >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "handleServiceChange(TTSService.WEB_SPEECH)}\r\n                        className=\"w-4 h-4\"\r\n                      />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "Web Speech API"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "handleServiceChange(TTSService.ELEVENLABS)}\r\n                        className=\"w-4 h-4\"\r\n                      />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "ElevenLabs"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setAvatarGender('male')}\r\n                        className=\"w-4 h-4\"\r\n                      />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setAvatarGender('female')}\r\n                        className=\"w-4 h-4\"\r\n                      />"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setShowHistory(false)}\r\n                  className=\"w-8 h-8 rounded-full hover:bg-gray-200 flex items-center justify-center transition-colors\"\r\n                >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\TextChatUI.tsx",
+    "type": "Tag Content",
+    "text": ") : historyConversations.length === 0 ? ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\Visualizer.tsx",
+    "type": "Tag Content",
+    "text": "cancelAnimationFrame(animationId);\r\n  }, [isActive, color]);\r\n\r\n  return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n  // Active session refs\r\n  const currentConversationIdRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const conversationStartTime = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n  // Local camera preview\r\n  const [cameraOn, setCameraOn] = useState(false);\r\n  const localVideoRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const streamRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n  // Modals and settings\r\n  const [activeModal, setActiveModal] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(\r\n    null,\r\n  );\r\n  const [ttsEnabled, setTtsEnabled] = useState(true);\r\n  const [userPoints, setUserPoints] = useState(1250);\r\n\r\n  // History State\r\n  const [showHistory, setShowHistory] = useState(false);\r\n  const [historyConversations, setHistoryConversations] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [loadingHistory, setLoadingHistory] = useState(false);\r\n  const [expandedConversationId, setExpandedConversationId] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [conversationMessages, setConversationMessages] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "([]);\r\n  const [lastFeedback, setLastFeedback] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const timerRafRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const callStartTimeRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setActiveModal(null)}\r\n                className=\"w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center\"\r\n              >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setActiveModal(null)}\r\n                className=\"w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center\"\r\n              >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setShowFeedbackOverlay(false)}\r\n                    className=\"text-white/80 hover:text-white\"\r\n                  >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setShowFeedbackDetails(!showFeedbackDetails)}\r\n                        className=\"flex items-center gap-1 text-[10px] font-bold text-purple-600 uppercase tracking-widest hover:text-purple-800 transition-colors\"\r\n                      >\r\n                        {showFeedbackDetails ?"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": "setShowHistory(false)}\r\n                  className=\"w-8 h-8 rounded-full hover:bg-gray-200 flex items-center justify-center transition-colors\"\r\n                >"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\components\\VoiceChatUI.tsx",
+    "type": "Tag Content",
+    "text": ") : historyConversations.length === 0 ? ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\AuthContext.tsx",
+    "type": "Tag Content",
+    "text": "Promise"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\AuthContext.tsx",
+    "type": "Tag Content",
+    "text": "* ```\r\n *\r\n * @remarks\r\n * - Automatically initializes auth state from localStorage on mount\r\n * - Attempts to refresh expired tokens automatically\r\n * - Stores token, expiration, and user data in localStorage\r\n * - All auth errors are thrown (not caught internally) for handling by UI\r\n */\r\nexport const AuthProvider: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\AuthContext.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [token, setToken] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\AuthContext.tsx",
+    "type": "Tag Content",
+    "text": ";\r\n *   }\r\n *\r\n *   return"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\UserContext.tsx",
+    "type": "Tag Content",
+    "text": "}\r\n */\r\nconst UserContext = createContext"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\UserContext.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n\r\n/**\r\n * Provider component for the User Context.\r\n * Exports the Provider for use in App.tsx.\r\n *\r\n * @example\r\n * ```tsx\r\n *"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\UserContext.tsx",
+    "type": "Tag Content",
+    "text": "Please log in"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\UserContext.tsx",
+    "type": "Tag Content",
+    "text": ";\r\n *   }\r\n *\r\n *   return (\r\n *"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\context\\UserContext.tsx",
+    "type": "Tag Content",
+    "text": "Logout"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\components\\LevelUpModal.tsx",
+    "type": "Tag Content",
+    "text": "void;\r\n}\r\n\r\nconst LevelUpModal: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\components\\SessionSummaryModal.tsx",
+    "type": "Tag Content",
+    "text": "void;\r\n}\r\n\r\nconst SessionSummaryModal: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\components\\XpGainToast.tsx",
+    "type": "Tag Content",
+    "text": "void;\r\n}\r\n\r\nconst XpGainToast: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\components\\XpGainToast.tsx",
+    "type": "Tag Content",
+    "text": "clearTimeout(timer);\r\n  }, [onDismiss]);\r\n\r\n  return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\context\\GamificationContext.tsx",
+    "type": "Tag Content",
+    "text": "Promise"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\context\\GamificationContext.tsx",
+    "type": "Tag Content",
+    "text": "(undefined);\r\n\r\n// ============================================================================\r\n// PROVIDER\r\n// ============================================================================\r\n\r\nexport const GamificationProvider: React.FC"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\context\\GamificationContext.tsx",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const [isLoading, setIsLoading] = useState(true);\r\n  const [lastXpGained, setLastXpGained] = useState(0);\r\n  const [didLevelUp, setDidLevelUp] = useState(false);\r\n  const [newlyUnlockedTopics, setNewlyUnlockedTopics] = useState"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\context\\GamificationContext.tsx",
+    "type": "Tag Content",
+    "text": "setLastXpGained(0), []);\r\n\r\n  return ("
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\core\\xpCalculator.ts",
+    "type": "Tag Content",
+    "text": "= 0)\r\n * @param config - Gamification configuration\r\n * @returns XP earned (non-negative integer)\r\n */\r\nexport function calculateXpFromDuration(\r\n  durationSeconds: number,\r\n  config: GamificationConfig,\r\n  isVoice: boolean = false,\r\n  isAvatar: boolean = false,\r\n): number {\r\n  validateConfig(config);\r\n  if (durationSeconds"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\hooks\\useChatSession.ts",
+    "type": "Tag Content",
+    "text": "(null);\r\n  const awardedXpRef = useRef"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\hooks\\useGamification.ts",
+    "type": "Tag Content",
+    "text": "Promise"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\repository\\GamificationRepository.ts",
+    "type": "Tag Content",
+    "text": ",\r\n  ): Promise"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\repository\\IGamificationRepository.ts",
+    "type": "Tag Content",
+    "text": "= 0) */\r\n  total_xp: number;\r\n  /** Current level (1–5) */\r\n  current_level: number;\r\n  /** Progress percentage within current level (0–100) */\r\n  level_progress: number;\r\n  /** ISO timestamp of record creation */\r\n  created_at?: string;\r\n  /** ISO timestamp of last update */\r\n  updated_at?: string;\r\n  /** Voice seconds used in the current date */\r\n  voice_seconds_used_today?: number;\r\n  /** Total voice seconds used across the entire lifetime (used for Level 1 trial) */\r\n  voice_seconds_used_lifetime?: number;\r\n  /** Last date (YYYY-MM-DD) when voice chat was used */\r\n  last_voice_chat_date?: string;\r\n}\r\n\r\n// ============================================================================\r\n// INTERFACE\r\n// ============================================================================\r\n\r\nexport interface IGamificationRepository {\r\n  /**\r\n   * Fetches the gamification profile for a user.\r\n   * Returns null if no profile exists yet.\r\n   */\r\n  getProfile(userId: string): Promise"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\repository\\IGamificationRepository.ts",
+    "type": "Tag Content",
+    "text": ";\r\n\r\n  /**\r\n   * Creates or updates the gamification profile (upsert by user_id).\r\n   * Returns the persisted profile, or null if persistence failed.\r\n   */\r\n  upsertProfile(\r\n    profile: Omit"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\repository\\IGamificationRepository.ts",
+    "type": "Tag Content",
+    "text": ",\r\n  ): Promise"
+  },
+  {
+    "file": "C:\\Users\\bielx\\source\\repos\\zzz\\sakae-e-learning-v3\\gamification\\repository\\IGamificationRepository.ts",
+    "type": "Tag Content",
+    "text": ";\r\n\r\n  /**\r\n   * Returns the existing profile or creates a default one (level 1, 0 XP).\r\n   * Never returns null — falls back to an in-memory default if persistence fails.\r\n   */\r\n  getOrCreateProfile(userId: string): Promise"
+  }
+]
